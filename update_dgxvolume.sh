@@ -7,4 +7,7 @@ python3 digix_info_bot.py >> ../dgxvolume.markdown
 gnuplot graph.gp
 ./eps2png.sh out.eps
 cd ..
+git add .
+git commit -m "."
+git push -u origin master
 

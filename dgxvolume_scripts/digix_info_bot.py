@@ -4,7 +4,7 @@ import datetime
 
 now = datetime.datetime.now()
 print("This page updates daily. Last updated:")
-print(now.strftime("%Y-%m-%d %H:%M"))
+print(now.strftime("%Y-%m-%d %H:%M") + '\n')
 
 # Current block
 with open('current.block') as f:

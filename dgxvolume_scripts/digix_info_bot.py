@@ -57,7 +57,7 @@ Jun24_2018_10am = 1529831840
 f=open("24hr_volume.dat", "a+")
 hrs_from_start = (currentts - Jun24_2018_10am)/3600
 #f.write(str(hrs_from_start) + ' ' + str(float(x)/1e9) + '\n')
-f.write(str(now.strftime("%Y-%m-%d")) + ' ' + str(float(x)/1e9) + '\n')
+f.write(str(now.strftime("%Y-%m-%d %H:%M")) + ' ' + str(float(x)/1e9) + '\n')
 
 # DGX total supply
 with urllib.request.urlopen("https://api.etherscan.io/api?module=stats&action=tokensupply&contractaddress=0x4f3afec4e5a3f2a6a1a411def7d7dfe50ee057bf&apikey=Z672TYZ9ZYSM7KSCKM133HSF8UG1BF8DR7") as url:

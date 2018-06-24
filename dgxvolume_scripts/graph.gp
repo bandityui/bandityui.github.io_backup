@@ -29,9 +29,9 @@ set mxtics 2
 set xtics rotate 
 
 set xdata time
-set timefmt "%Y-%m-%d"
+set timefmt "%Y-%m-%d %H:$M"
 #set format x "%d/%m/%Y"
-p '24hr_volume.dat' u 1:2 w lp pt 5 lw 4.0 t "24 hr on-chain volume"
+p '24hr_volume.dat' u 1:3 w lp pt 5 lw 4.0 t "24 hr on-chain volume"
 
 unset multiplot
 

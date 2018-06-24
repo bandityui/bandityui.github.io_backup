@@ -26,6 +26,7 @@ set xlabel "Time (hrs)"
 set ylabel "DGX 24 hr on-chain volume"
 set mytics 2
 set mxtics 2
+set xtics rotate 
 
 set xdata time
 set timefmt "%Y-%m-%d"

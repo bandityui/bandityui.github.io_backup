@@ -1,6 +1,6 @@
 #!/bin/bash
 
-cp _drafts/dgxvolume.template dgxvolume.markdown
+cp /home/thomas/bandityui.github.io/_drafts/dgxvolume.template /home/thomas/bandityui.github.io/dgxvolume.markdown
 cd /home/thomas/bandityui.github.io/dgxvolume_scripts 
 ./current_block.sh
 python3 digix_info_bot.py >> ../dgxvolume.markdown

@@ -17,6 +17,7 @@ margins 0.25,0.85,0.29,0.90 \
 #margins <left>,<right>,<bottom>,<top>
 
 unset title
+set grid
 #set xrange [0 : 100 ]
 show xrange
 #set yrange [0 : 1000]
@@ -28,7 +29,7 @@ set mxtics 2
 
 set xdata time
 set timefmt "%Y-%m-%d"
-p '24hr_volume.dat' u 1:2 w lp t "24 hr on-chain volume"
+p '24hr_volume.dat' u 1:2 w lp pt 5 lw 4.0 t "24 hr on-chain volume"
 
 unset multiplot
 

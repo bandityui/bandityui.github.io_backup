@@ -3,6 +3,8 @@ import json
 import datetime
 
 now = datetime.datetime.now()
+print("This page updates daily. Last updated:")
+print(now.strftime("%Y-%m-%d %H:%M"))
 
 # Current block
 with open('current.block') as f:
@@ -64,5 +66,3 @@ hrs_from_start = (currentts - Jun24_2018_10am)/3600
 #f.write(str(hrs_from_start) + ' ' + str(float(x)/1e9) + '\n')
 f.write(str(now.strftime("%Y-%m-%d")) + ' ' + str(float(x)/1e9) + '\n')
 
-print("This page updates every hour. Last updated:")
-print(now.strftime("%Y-%m-%d %H:%M"))

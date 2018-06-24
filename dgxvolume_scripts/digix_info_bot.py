@@ -3,7 +3,7 @@ import json
 import datetime
 
 now = datetime.datetime.now()
-print("This page updates daily using data from [etherscan.io](https://etherscan.io). Last updated:")
+print("This page updates hourly using data from [etherscan.io](https://etherscan.io/token/0x4f3afec4e5a3f2a6a1a411def7d7dfe50ee057bf). Last updated:")
 print(now.strftime("%Y-%m-%d %H:%M") + ' UTC\n')
 
 # Current block

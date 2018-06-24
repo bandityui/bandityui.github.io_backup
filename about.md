@@ -4,15 +4,12 @@ title: About
 permalink: /about/
 ---
 
-This is the base Jekyll theme. You can find out more info about customizing your Jekyll theme, as well as basic Jekyll usage documentation at [jekyllrb.com](https://jekyllrb.com/)
+This page graphs the 24 hour on-chain volume for the Digix gold token (DGX) ([digix,global][digix-organisation]).
 
-You can find the source code for Minima at GitHub:
-[jekyll][jekyll-organization] /
-[minima](https://github.com/jekyll/minima)
+It queries the ([etherscan API][https://etherscan.io/apis]) for DGX on-chain transactions. 
 
-You can find the source code for Jekyll at GitHub:
-[jekyll][jekyll-organization] /
-[jekyll](https://github.com/jekyll/jekyll)
+## What is DGX?
 
+DGX is a gold-backed ERC-20 token built on the ethereum blockchain. Each token represents 1gm of 99.99% LBMA standard gold and secured in safehouse vaults.
 
-[jekyll-organization]: https://github.com/jekyll
+[digix-organisation]:https://digix.global/

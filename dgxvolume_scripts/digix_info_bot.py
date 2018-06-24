@@ -4,7 +4,7 @@ import datetime
 
 now = datetime.datetime.now()
 print("This page updates daily using data from [etherscan.io](https://etherscan.io). Last updated:")
-print(now.strftime("%Y-%m-%d %H:%M") + 'UTC\n')
+print(now.strftime("%Y-%m-%d %H:%M") + ' UTC\n')
 
 # Current block
 with open('current.block') as f:

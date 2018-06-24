@@ -23,7 +23,7 @@ show xrange
 #set yrange [0 : 1000]
 show yrange
 set xlabel "Time (hrs)"
-set ylabel "DGX 24 hr on-chain volume"
+set ylabel "24 hr on-chain volume (DGX)"
 set mytics 2
 set mxtics 2
 set xtics rotate 

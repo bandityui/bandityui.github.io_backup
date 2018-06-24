@@ -4,9 +4,9 @@ title: About
 permalink: /about/
 ---
 
-This page graphs the 24 hour on-chain volume for the Digix gold token (DGX) ([digix,global][digix-organisation]).
+This page graphs the 24 hour on-chain volume for the Digix gold token (DGX) ([digix.global][digix-organisation]).
 
-It queries the ([etherscan API][https://etherscan.io/apis]) for DGX on-chain transactions. 
+It queries the [etherscan API](https://etherscan.io/apis) for DGX on-chain transactions. 
 
 ## What is DGX?
 

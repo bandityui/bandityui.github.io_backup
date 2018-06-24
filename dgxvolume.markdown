@@ -8,10 +8,10 @@ categories: DGX
 ![DGX volume graph](dgxvolume_scripts/out.png)
 
 
-This page updates daily using data from [I'm an inline-style link](https://etherscan.io). Last updated:
-2018-06-24 18:52
-
-DGX total supply (etherscan) = 50300
+This page updates daily using data from [etherscan.io](https://etherscan.io). Last updated:
+2018-06-24 18:55UTC
 
 DGX 24hr on-chain volume (last 41 transactions) = 1365.774416118
+
+DGX total supply (etherscan) = 50300
 

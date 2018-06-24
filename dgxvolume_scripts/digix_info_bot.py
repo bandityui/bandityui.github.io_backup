@@ -3,8 +3,8 @@ import json
 import datetime
 
 now = datetime.datetime.now()
-print("This page updates daily using data from [I'm an inline-style link](https://etherscan.io). Last updated:")
-print(now.strftime("%Y-%m-%d %H:%M") + '\n')
+print("This page updates daily using data from [etherscan.io](https://etherscan.io). Last updated:")
+print(now.strftime("%Y-%m-%d %H:%M") + 'UTC\n')
 
 # Current block
 with open('current.block') as f:
@@ -12,13 +12,6 @@ with open('current.block') as f:
 currentblock,blocktime = a.split(" ")
 #print('Current block: ' + currentblock + '\n')
 #print('Avg. block time of latest 5000 blocks: ' + blocktime + '\n')
-
-# DGX total supply
-with urllib.request.urlopen("https://api.etherscan.io/api?module=stats&action=tokensupply&contractaddress=0x4f3afec4e5a3f2a6a1a411def7d7dfe50ee057bf&apikey=Z672TYZ9ZYSM7KSCKM133HSF8UG1BF8DR7") as url:
-  data = json.loads(url.read().decode())
-amount = data.get("result","None")
-msg = "DGX total supply (etherscan) = " + str(amount[:-9])
-print(msg + '\n')
 
 # ETH held by DAO contract address
 #with urllib.request.urlopen("https://api.etherscan.io/api?module=account&action=balance&address=0xF0160428a8552AC9bB7E050D90eEADE4DDD52843&tag=latest&apikey=Z672TYZ9ZYSM7KSCKM133HSF8UG1BF8DR7") as url:
@@ -65,4 +58,11 @@ f=open("24hr_volume.dat", "a+")
 hrs_from_start = (currentts - Jun24_2018_10am)/3600
 #f.write(str(hrs_from_start) + ' ' + str(float(x)/1e9) + '\n')
 f.write(str(now.strftime("%Y-%m-%d")) + ' ' + str(float(x)/1e9) + '\n')
+
+# DGX total supply
+with urllib.request.urlopen("https://api.etherscan.io/api?module=stats&action=tokensupply&contractaddress=0x4f3afec4e5a3f2a6a1a411def7d7dfe50ee057bf&apikey=Z672TYZ9ZYSM7KSCKM133HSF8UG1BF8DR7") as url:
+  data = json.loads(url.read().decode())
+amount = data.get("result","None")
+msg = "DGX total supply (etherscan) = " + str(amount[:-9])
+print(msg + '\n')
 

@@ -3,7 +3,7 @@ import json
 import datetime
 
 now = datetime.datetime.now()
-print("This page updates daily. Last updated:")
+print("This page updates daily using data from https://etherscan.io. Last updated:")
 print(now.strftime("%Y-%m-%d %H:%M") + '\n')
 
 # Current block

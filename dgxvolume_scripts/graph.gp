@@ -24,16 +24,29 @@ show xrange
 show yrange
 set xlabel "Time (hrs)"
 set ylabel "24 hr on-chain volume (DGX)"
-set mytics 2
 set mxtics 2
 set xtics rotate 
+set key bottom right
+set ytics 0,100,10000 nomirror tc lt 1
+set mytics 2
 
+set y2tics 0,2,100 nomirror tc lt 2
 set my2tics 2
+
+stats "24hr_volume.dat" u 1:4 nooutput
+set y2range [0:1.5*STATS_max_y]
+set y2label "Percent of total supply" offset -2,0
+
+stats "24hr_volume.dat" u 1:3 nooutput
+set yrange [0.96*STATS_min_y:1.04*STATS_max_y]
+
 set xdata time
 set timefmt "%Y-%m-%d %H:$M"
 set format x "%d/%m %H:%M"
-p '24hr_volume.dat' u 1:3 w lp pt 5 lw 4.0 t "24 hr on-chain volume",\
-  ' ' u 1:4 w lp pt 4 lw 4.0 t "Percent of total supply"
+
+LW=4.0
+p '24hr_volume.dat' u 1:3 w lp pt 5 lw LW t "24 hr on-chain volume",\
+  '' u 1:4 w lp pt 4 lw LW axes x1y2 t "Percent of total supply"
 
 unset multiplot
 

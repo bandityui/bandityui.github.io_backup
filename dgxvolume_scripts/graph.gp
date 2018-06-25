@@ -25,7 +25,7 @@ show yrange
 set xlabel "Time (hrs)"
 set ylabel "24 hr on-chain volume (DGX)"
 set mxtics 2
-set xtics rotate 
+set xtics rotate
 set key bottom right
 set ytics 0,100,10000 nomirror tc lt 1
 set mytics 2

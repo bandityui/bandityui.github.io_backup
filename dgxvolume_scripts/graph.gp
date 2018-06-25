@@ -12,7 +12,7 @@ set encoding utf8
 #set xlabel "K^+ Momentum (GeV/c)"
 
 set multiplot layout 1,1 font ",18" \
-margins 0.25,0.85,0.35,0.90 \
+margins 0.25,0.85,0.35,0.85 \
               spacing 0.00,0.00
 #margins <left>,<right>,<bottom>,<top>
 
@@ -26,7 +26,7 @@ set xlabel "Time (hrs)"
 set ylabel "24 hr on-chain volume (DGX)"
 set mxtics 2
 set xtics rotate
-set key bottom right
+unset key
 set ytics 0,100,10000 nomirror tc lt 1
 set mytics 2
 

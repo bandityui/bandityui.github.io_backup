@@ -28,10 +28,12 @@ set mytics 2
 set mxtics 2
 set xtics rotate 
 
+set my2tics 2
 set xdata time
 set timefmt "%Y-%m-%d %H:$M"
 set format x "%d/%m %H:%M"
-p '24hr_volume.dat' u 1:3 w lp pt 5 lw 4.0 t "24 hr on-chain volume"
+p '24hr_volume.dat' u 1:3 w lp pt 5 lw 4.0 t "24 hr on-chain volume",\
+  ' ' u 1:4 w lp pt 4 lw 4.0 t "Percent of total supply"
 
 unset multiplot
 

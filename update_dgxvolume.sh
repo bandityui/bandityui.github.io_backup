@@ -1,5 +1,6 @@
 #!/bin/bash
 
+cp /home/thomas/bandityui.github.io/dgxvolume_scripts/24hr_volume.dat /home/thomas/bandityui.github.io/dgxvolume_scripts/24hr_volume.backup
 cp /home/thomas/bandityui.github.io/_drafts/dgxvolume.template /home/thomas/bandityui.github.io/dgxvolume.markdown
 cd /home/thomas/bandityui.github.io/dgxvolume_scripts 
 ./current_block.sh

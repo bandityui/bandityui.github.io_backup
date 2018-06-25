@@ -68,7 +68,7 @@ f.write(str(now.strftime("%Y-%m-%d %H:%M")) + ' ' + str(volume24) + ' ' + str(pc
 print("This page updates hourly using data from the [DGX contract address (etherscan)](https://etherscan.io/token/0x4f3afec4e5a3f2a6a1a411def7d7dfe50ee057bf). Last updated:")
 print(now.strftime("%Y-%m-%d %H:%M") + ' UTC\n')
 
-msg = "DGX 24hr on-chain volume (last " + str(n) + ' transactions) = ' + str(volume24)
+msg = "DGX 24hr on-chain volume (last " + str(n) + ' transactions) = ' + str(volume24) + ' (' + str(pcoftotal) + '% of total)'
 print(msg + '\n')
 
 msg = "DGX total supply (etherscan) = " + str(totalsupply) 

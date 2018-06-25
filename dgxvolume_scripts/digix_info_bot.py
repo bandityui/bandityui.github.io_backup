@@ -59,16 +59,15 @@ Jun24_2018_10am = 1529831840
 f=open("24hr_volume.dat", "a+")
 hrs_from_start = (currentts - Jun24_2018_10am)/3600
 #f.write(str(hrs_from_start) + ' ' + str(float(x)/1e9) + '\n')
-volume24 = float(x)/1e9
-pcoftotal = 100*volume24/float(totalsupply)
+volume24 = round(float(x)/1e9,8)
+pcoftotal = round(100*volume24/float(totalsupply),2)
 f.write(str(now.strftime("%Y-%m-%d %H:%M")) + ' ' + str(volume24) + ' ' + str(pcoftotal) + '\n')
 
-
-# messages
+# print messages
 print("This page updates hourly using data from the [DGX contract address (etherscan)](https://etherscan.io/token/0x4f3afec4e5a3f2a6a1a411def7d7dfe50ee057bf). Last updated:")
 print(now.strftime("%Y-%m-%d %H:%M") + ' UTC\n')
 
-msg = "DGX 24hr on-chain volume (last " + str(n) + ' transactions) = ' + str(volume24) + ' (' + str(round(pcoftotal,2)) + '% of total)'
+msg = "DGX 24hr on-chain volume (last " + str(n) + ' transactions) = ' + str(volume24) + ' (' + str(pcoftotal) + '% of total)'
 print(msg + '\n')
 
 msg = "DGX total supply (etherscan) = " + str(totalsupply) 

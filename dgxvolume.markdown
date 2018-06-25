@@ -9,8 +9,8 @@ categories: DGX
 
 
 This page updates hourly using data from the [DGX contract address (etherscan)](https://etherscan.io/token/0x4f3afec4e5a3f2a6a1a411def7d7dfe50ee057bf). Last updated:
-2018-06-25 20:00 UTC
+2018-06-25 21:00 UTC
 
-DGX 24hr on-chain volume (last 25 transactions) = 877.141730424 (1.7438205376222664% of total)
+DGX 24hr on-chain volume (last 29 transactions) = 772.546790192 (1.54% of total)
 
 DGX total supply (etherscan) = 50300

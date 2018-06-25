@@ -63,6 +63,6 @@ f.write(str(now.strftime("%Y-%m-%d %H:%M")) + ' ' + str(float(x)/1e9) + '\n')
 with urllib.request.urlopen("https://api.etherscan.io/api?module=stats&action=tokensupply&contractaddress=0x4f3afec4e5a3f2a6a1a411def7d7dfe50ee057bf&apikey=Z672TYZ9ZYSM7KSCKM133HSF8UG1BF8DR7") as url:
   data = json.loads(url.read().decode())
 amount = data.get("result","None")
-msg = "###### DGX total supply (etherscan) = \n" + str(amount[:-9]) 
+msg = "DGX total supply (etherscan) = " + str(amount[:-9]) 
 print(msg)
 

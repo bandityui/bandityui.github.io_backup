@@ -27,7 +27,7 @@ set ylabel "24 hr on-chain volume (DGX)"
 set mxtics 2
 set xtics rotate
 unset key
-set ytics 0,100,10000 nomirror tc lt 1
+set ytics 0,200,900000 nomirror tc lt 1
 set mytics 2
 
 set y2tics 0,2,100 nomirror tc lt 2
@@ -38,7 +38,7 @@ set y2range [0:1.5*STATS_max_y]
 set y2label "Percent of total supply" offset -1,0
 
 stats "24hr_volume.dat" u 1:3 nooutput
-set yrange [0.96*STATS_min_y:1.04*STATS_max_y]
+set yrange [0.9*STATS_min_y:1.04*STATS_max_y]
 
 set xdata time
 set timefmt "%Y-%m-%d %H:$M"

@@ -83,16 +83,15 @@ with open('quarterly_datetimes.dat','w+') as f:
 # print messages
 print("This page updates hourly using data from the [DGX contract address (etherscan)](https://etherscan.io/token/0x4f3afec4e5a3f2a6a1a411def7d7dfe50ee057bf). Last updated:")
 print(now.strftime("%Y-%m-%d %H:%M") + ' UTC\n')
-msg = "Week starting " + str(datew.strftime("%d-%m-%Y")) + " accumulated volume = " + str(wv) + " DGX."
-print(msg + '\n')
-msg = "Quarter (90 day period) starting " + str(dateq.strftime("%d-%m-%Y")) + " accumulated volume = " + str(qv) + " DGX."
-print(msg + '\n')
-msg = "All-time volume starting " + str(d0.strftime("%d-%m-%Y")) + " = " + str(tv) + " DGX."
-print(msg + '\n')
+
+print("### Volume table\n")
+print("| Week | Quarter | All-time\n")
+print("Starting |" + str(datew.strftime("%d-%m-%Y")) +"|" + str(dateq.strftime("%d-%m-%Y")) + "|" + str(d0.strftime("%d-%m-%Y")) + "\n")
+print("Volume (DGX) |" + str(wv) + "|" + str(qv) + "|" + str(tv) + "\n"
+
 totalsupply = dgxtotalsupply()
 msg = "DGX total supply: " + totalsupply
 print(msg)
-
 
 ##msg = "DGX 24hr on-chain volume (last " + str(n) + ' transactions) = ' + str(volume24) + ' (' + str(pcoftotal) + '% of total)'
 ##print(msg + '\n')

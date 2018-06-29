@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "DGX on-chain volume"
-date:   2018-06-29 10:00:01.470021
+date:   2018-06-29 11:00:02.781949
 categories: DGX
 ---
 
@@ -9,12 +9,12 @@ categories: DGX
 
 
 This page updates hourly using data from the [DGX contract address (etherscan)](https://etherscan.io/token/0x4f3afec4e5a3f2a6a1a411def7d7dfe50ee057bf). Last updated:
-2018-06-29 10:00 UTC
+2018-06-29 11:00 UTC
 
-Week starting 25-06-2018 accumulated volume = 2668.25759423 DGX.
+Week starting 25-06-2018 accumulated volume = 2696.02989617 DGX.
 
-Quarter (90 day period) starting 24-06-2018 accumulated volume = 6686.15639398 DGX.
+Quarter (90 day period) starting 24-06-2018 accumulated volume = 6713.92869591 DGX.
 
-All-time volume starting 26-03-2018 = 213859.50660812 DGX.
+All-time volume starting 26-03-2018 = 213887.27891005 DGX.
 
 DGX total supply: 50300

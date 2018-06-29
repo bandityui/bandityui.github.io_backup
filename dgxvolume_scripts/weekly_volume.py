@@ -85,9 +85,9 @@ print("This page updates hourly using data from the [DGX contract address (ether
 print(now.strftime("%Y-%m-%d %H:%M") + ' UTC\n')
 
 print("### Volume table\n")
-print("| Week | Quarter | All-time")
+print("|    | Current Week | Current Quarter | All-time")
 print("--- | --- | --- | ---")
-print("Starting |" + str(datew.strftime("%d-%m-%Y")) +"|" + str(dateq.strftime("%d-%m-%Y")) + "|" + str(d0.strftime("%d-%m-%Y")))
+print("Start date |" + str(datew.strftime("%d-%m-%Y")) +"|" + str(dateq.strftime("%d-%m-%Y")) + "|" + str(d0.strftime("%d-%m-%Y")))
 print("Volume (DGX) |" + str(wv) + "|" + str(qv) + "|" + str(tv) + "\n")
 
 totalsupply = dgxtotalsupply()

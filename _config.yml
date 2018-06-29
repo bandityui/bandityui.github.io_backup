@@ -17,8 +17,7 @@ title: Digix gold token (DGX) on-chain volume
 subtitle: 24 hr DGX on-chain volume
 #email: your-email@example.com
 description: >- # this means to ignore newlines until "baseurl:"
-  This page graphs the Digix gold token (DGX) 24 hour on-chain volume.
-  A new point is added every hour.
+  This page graphs the Digix gold token (DGX) on-chain volume based on the etherscan API.
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "" # the base hostname & protocol for your site, e.g. http://example.com
 #twitter_username: jekyllrb

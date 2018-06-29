@@ -4,6 +4,8 @@ import datetime
 from dgxtotalsupply import *
 
 now = datetime.datetime.now()
+with open('date.txt','w+') as f:
+  f.write(str(now))
 
 # DGX on-chain volume
 with urllib.request.urlopen("https://api.etherscan.io/api?module=account&action=tokentx&contractaddress=0x4f3afec4e5a3f2a6a1a411def7d7dfe50ee057bf&page=1&offset=999999&sort=asc&apikey=Z672TYZ9ZYSM7KSCKM133HSF8UG1BF8DR7") as url:
@@ -67,21 +69,20 @@ with open('weekly_datetimes.dat','w+') as f:
     f.write(str(date) + '\n')  # skip the 0th week
 
 # print messages
+print("This page updates hourly using data from the [DGX contract address (etherscan)](https://etherscan.io/token/0x4f3afec4e5a3f2a6a1a411def7d7dfe50ee057bf). Last updated:")
+print(now.strftime("%Y-%m-%d %H:%M") + ' UTC\n')
 msg = "Week starting " + str(date.strftime("%d-%m-%Y")) + " accumulated volume = " + str(wv) + " DGX."
-print(msg)
+print(msg + '\n')
 msg = "Quarter (90 day period) starting " + str(d0.strftime("%d-%m-%Y")) + " accumulated volume = " + str(qv) + " DGX."
-print(msg)
+print(msg + '\n')
 totalsupply = dgxtotalsupply()
 msg = "DGX total supply: " + totalsupply
 print(msg)
 
-##print("This page updates hourly using data from the [DGX contract address (etherscan)](https://etherscan.io/token/0x4f3afec4e5a3f2a6a1a411def7d7dfe50ee057bf). Last updated:")
-##print(now.strftime("%Y-%m-%d %H:%M") + ' UTC\n')
 
 ##msg = "DGX 24hr on-chain volume (last " + str(n) + ' transactions) = ' + str(volume24) + ' (' + str(pcoftotal) + '% of total)'
 ##print(msg + '\n')
 
 ##msg = "DGX total supply (etherscan) = " + str(totalsupply) 
 ##print(msg)
-
 

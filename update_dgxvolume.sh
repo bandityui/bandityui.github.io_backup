@@ -5,7 +5,9 @@ cd /home/thomas/bandityui.github.io/dgxvolume_scripts
 python3 weekly_volume.py >> ../dgxvolume.markdown
 gnuplot graph_weekly.gp
 ./eps2png.sh out.eps
+A=$(cat date.txt)
 cd /home/thomas/bandityui.github.io/
+sed -i "s/VALUE/$A/" dgxvolume.markdown
 git add .
 git commit -m "."
 git push -u origin master

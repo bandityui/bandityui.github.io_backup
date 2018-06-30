@@ -14,14 +14,30 @@ amount = data.get("result","None")
 x = 0
 length = len(amount)
 
+# print messages
+print("This page updates hourly using data from the [DGX contract address (etherscan)](https://etherscan.io/token/0x4f3afec4e5a3f2a6a1a411def7d7dfe50ee057bf). Last updated:")
+print(now.strftime("%Y-%m-%d %H:%M") + ' UTC\n')
+
+# Begin weekly table
+print("### Weekly volume table\n")
+print("Week Starting | Volume (DGX)")
+print("--- | ---")
+
 # loop over whole list of txs
 hour = 3600
 day  = 24*hour
 week = 7*day
 quarter = 90*day
 
+# seconds from beginning
+d0 = datetime.datetime(2018, 3, 26, 0, 0)
+delta = now - d0
+ts_now = delta.total_seconds()
+
 wv = 0
 qv = 0
+datew = d0  # 
+dateq = d0  # 
 tv = 0
 t1 = 0
 t2 = 0
@@ -44,14 +60,17 @@ with open('quarterly.dat','w+') as f2:
       if t1 >= week:
         cw += 1 # count
         y = round(float(wv)/1e9,8)
-        f.write(str(cw) + ' ' + str(y) + '\n')  # write week number, volume to file
+        print(str(datew.strftime("%d/%m/%Y")) + "|" + str(y))
+        f.write(str(datew) + ' ' + str(y) + '\n')  # write week number, volume to file
+        datew = datew + datetime.timedelta(days=7)
         tstore1 = tc
         t1 = 0
         wv = 0
       elif t2 >= quarter:
         cq += 1 # count
         y = round(float(qv)/1e9,8)
-        f2.write(str(cq) + ' ' + str(y) + '\n')  # write week number, volume to file
+        f2.write(str(dateq) + ' ' + str(y) + '\n')  # write week number, volume to file
+        dateq = dateq + datetime.timedelta(days=90)
         tstore2 = tc
         t2 = 0
         qv = 0
@@ -61,43 +80,16 @@ wv = round(float(wv)/1e9,8)
 qv = round(float(qv)/1e9,8)
 tv = round(float(tv)/1e9,8)
 
-# seconds from beginning
-d0 = datetime.datetime(2018, 3, 26, 0, 0)
-delta = now - d0
-ts_now = delta.total_seconds()
-
-# weekly datetime list to file
-datew = d0  # 
-with open('weekly_datetimes.dat','w+') as f:
-  for i in range(0,cw):
-    datew = datew + datetime.timedelta(days=7)
-    f.write(str(datew) + '\n')  # skip the 0th week
-
-# quarterly datetime list to file
-dateq = d0  # 
-with open('quarterly_datetimes.dat','w+') as f:
-  for i in range(0,cq):
-    dateq = dateq + datetime.timedelta(days=90)
-    f.write(str(dateq) + '\n')  # skip the 0th week
-
-# print messages
-print("This page updates hourly using data from the [DGX contract address (etherscan)](https://etherscan.io/token/0x4f3afec4e5a3f2a6a1a411def7d7dfe50ee057bf). Last updated:")
-print(now.strftime("%Y-%m-%d %H:%M") + ' UTC\n')
-
-print("### Volume table\n")
-print("| | Starting Date | Volume (DGX) ")
-print("--- | --- | ---")
-print("Current Week |"    + str(datew.strftime("%d/%m/%Y")) + "|" + str(wv))
-print("Current Quarter |" + str(dateq.strftime("%d/%m/%Y")) + "|" + str(qv) )
-print("All-Time |"        + str(d0.strftime("%d/%m/%Y"))    + "|" + str(tv) + "\n")
+# All-time volume table
+#print("Current Quarter |" + str(dateq.strftime("%d/%m/%Y")) + "|" + str(qv) )
+print("\n")
+print("### All-time volume\n")
+print("Date | Volume (DGX)")
+print("--- | ---")
+print(str(d0.strftime("%d/%m/%Y"))    + "|" + str(tv) + "\n")
 
 totalsupply = dgxtotalsupply()
 msg = "DGX total supply: " + totalsupply
 print(msg)
 
-##msg = "DGX 24hr on-chain volume (last " + str(n) + ' transactions) = ' + str(volume24) + ' (' + str(pcoftotal) + '% of total)'
-##print(msg + '\n')
-
-##msg = "DGX total supply (etherscan) = " + str(totalsupply) 
-##print(msg)
 

@@ -35,8 +35,9 @@ set timefmt "%Y-%m-%d %H:$M"
 set format x "%d/%m"
 
 LW=4.0
-p '< paste weekly_datetimes.dat weekly.dat' u 1:4 w lp pt 5 lw LW t "Weekly on-chain volume"
+p 'weekly.dat' u 1:3 w lp pt 5 lw LW t "Weekly on-chain volume"
 
 unset multiplot
+
 
 

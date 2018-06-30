@@ -91,7 +91,6 @@ print(str(d0.strftime("%d/%m/%Y"))    + "|" + str(tv) + "\n")
 totalsupply = dgxtotalsupply()
 print("| DGX Total Supply |")
 print("| --- |")
-msg = "|" + totalsupply + "|\n"
-print(msg)
+print("|" + totalsupply + "|\n")
 
 

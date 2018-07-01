@@ -30,14 +30,26 @@ unset key
 set mytics 2
 set my2tics 2
 
+set ytics 0,200,900000 nomirror tc lt 1
+set mytics 2
+
+set y2tics 0,2,100 nomirror tc lt 2
+set my2tics 2
+
+stats "weekly.dat" u 1:4 nooutput
+set y2range [0:1.5*STATS_max_y]
+set y2label "Percent of total supply" offset -1,0
+
+stats "weekly.dat" u 1:3 nooutput
+set yrange [0.9*STATS_min_y:1.04*STATS_max_y]
+
 set xdata time
 set timefmt "%Y-%m-%d %H:$M"
 set format x "%d/%m"
 
 LW=4.0
-p 'weekly.dat' u 1:3 w lp pt 5 lw LW t "Weekly on-chain volume"
+p 'weekly.dat' u 1:3 w lp pt 5 lw LW t "Weekly on-chain volume",\
+  '' u 1:(100*$3/$4) w lp pt 3 lw LW axes x1y2 t "Percent of total supply"
 
 unset multiplot
-
-
 

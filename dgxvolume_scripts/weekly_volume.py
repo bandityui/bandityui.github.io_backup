@@ -39,6 +39,7 @@ qv = 0
 datew = d0
 dateq = d0
 tv = 0
+mintv = 0
 t1 = 0
 t2 = 0
 cw = 0
@@ -49,20 +50,23 @@ t0 = amount[0]['timeStamp']  # time (s) of first tx
 with open('quarterly.dat','w+') as f2:
   with open('weekly.dat','w+') as f:
     for i in range(0,length):
+      x = int(amount[i]['value'])  # volume for ith tx
       if amount[i]['from'] != '0x0000000000000000000000000000000000000000':
         ts = amount[i]['timeStamp']  # read current timeStamp (s)
-        x = int(amount[i]['value'])  # volume for ith tx
         wv = wv + x  # accumulate tx amounts 
         qv = qv + x  # accumulate tx amounts 
         tv = tv + x  # accumulate tx amounts 
         tc = int(ts) - int(t0)  # time (s) since first tx
         t1 = tc - tstore1  # time (s) since last reset
         t2 = tc - tstore2  # time (s) since last reset
+      else:
+        y = round(float(x)/1e9,2)
+        mintv = mintv + y  # DGX minted 
       if t1 >= week:
         cw += 1 # count
         y = round(float(wv)/1e9,2)
         print(str(datew.strftime("%d/%m/%Y")) + "|" + str(y))
-        f.write(str(datew) + ' ' + str(y) + '\n')  # write week number, volume to file
+        f.write(str(datew) + ' ' + str(y) + ' ' + str(mintv) + '\n')  # write week number, volume to file
         datew = datew + datetime.timedelta(days=7)
         tstore1 = tc
         t1 = 0
@@ -77,7 +81,7 @@ with open('quarterly.dat','w+') as f2:
         qv = 0
     # current (unfinished week) and quarter volume
     wv = round(float(wv)/1e9,2)
-    f.write(str(datew) + ' ' + str(wv) + '\n')  # write week number, volume to file
+    f.write(str(datew) + ' ' + str(wv) + ' ' + str(mintv) + '\n')  # write week number, volume to file
     print(str(datew.strftime("%d/%m/%Y")) + "|" + str(wv))
     qv = round(float(qv)/1e9,2)
     tv = round(float(tv)/1e9,2)

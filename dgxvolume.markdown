@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "DGX on-chain volume"
-date:   2018-07-01 07:00:01.196485
+date:   2018-07-01 07:00:14.441415
 categories: DGX
 ---
 
@@ -28,6 +28,7 @@ Week Starting | Volume (DGX)
 04/06/2018|21114.77200941
 11/06/2018|9488.18374944
 18/06/2018|4863.29788636
+25/06/2018|4248.57739611
 
 
 ### All-time volume

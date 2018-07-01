@@ -74,11 +74,14 @@ with open('quarterly.dat','w+') as f2:
         tstore2 = tc
         t2 = 0
         qv = 0
+    # current (unfinished week) and quarter volume
+    wv = round(float(wv)/1e9,8)
+    f.write(str(datew) + ' ' + str(y) + '\n')  # write week number, volume to file
+    print(str(datew.strftime("%d/%m/%Y")) + "|" + str(wv))
+    qv = round(float(qv)/1e9,8)
+    tv = round(float(tv)/1e9,8)
 
-# current (unfinished week) and quarter volume
-wv = round(float(wv)/1e9,8)
-qv = round(float(qv)/1e9,8)
-tv = round(float(tv)/1e9,8)
+
 
 # All-time volume table
 #print("Current Quarter |" + str(dateq.strftime("%d/%m/%Y")) + "|" + str(qv) )

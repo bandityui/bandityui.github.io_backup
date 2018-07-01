@@ -59,7 +59,7 @@ with open('quarterly.dat','w+') as f2:
       t2 = tc - tstore2  # time (s) since last reset
       if t1 >= week:
         cw += 1 # count
-        y = round(float(wv)/1e9,8)
+        y = round(float(wv)/1e9,2)
         print(str(datew.strftime("%d/%m/%Y")) + "|" + str(y))
         f.write(str(datew) + ' ' + str(y) + '\n')  # write week number, volume to file
         datew = datew + datetime.timedelta(days=7)
@@ -68,18 +68,18 @@ with open('quarterly.dat','w+') as f2:
         wv = 0
       elif t2 >= quarter:
         cq += 1 # count
-        y = round(float(qv)/1e9,8)
+        y = round(float(qv)/1e9,2)
         f2.write(str(dateq) + ' ' + str(y) + '\n')  # write week number, volume to file
         dateq = dateq + datetime.timedelta(days=90)
         tstore2 = tc
         t2 = 0
         qv = 0
     # current (unfinished week) and quarter volume
-    wv = round(float(wv)/1e9,8)
+    wv = round(float(wv)/1e9,2)
     f.write(str(datew) + ' ' + str(wv) + '\n')  # write week number, volume to file
     print(str(datew.strftime("%d/%m/%Y")) + "|" + str(wv))
-    qv = round(float(qv)/1e9,8)
-    tv = round(float(tv)/1e9,8)
+    qv = round(float(qv)/1e9,2)
+    tv = round(float(tv)/1e9,2)
 
 
 

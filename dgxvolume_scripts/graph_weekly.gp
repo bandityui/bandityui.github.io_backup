@@ -12,7 +12,7 @@ set encoding utf8
 #set xlabel "K^+ Momentum (GeV/c)"
 
 set multiplot layout 1,1 font ",18" \
-margins 0.25,0.85,0.25,0.90 \
+margins 0.25,0.75,0.25,0.90 \
               spacing 0.00,0.00
 #margins <left>,<right>,<bottom>,<top>
 
@@ -34,12 +34,12 @@ set mytics 2
 set y2tics 0,10000,10000000 nomirror tc lt 2
 set my2tics 2
 
-#stats "weekly.dat" u 1:4 nooutput
-#set y2range [0:1.5*STATS_max_y]
-#set y2label "Percent of total supply" offset -1,0
-#
-#stats "weekly.dat" u 1:3 nooutput
-#set yrange [0.9*STATS_min_y:1.04*STATS_max_y]
+stats "weekly.dat" u 1:4 nooutput
+set y2range [0:1.1*STATS_max_y]
+set y2label "Percent of total supply" offset -1,0
+
+stats "weekly.dat" u 1:3 nooutput
+set yrange [0.9*STATS_min_y:1.05*STATS_max_y]
 
 set xdata time
 set timefmt "%Y-%m-%d %H:$M"

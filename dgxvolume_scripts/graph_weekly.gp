@@ -28,10 +28,10 @@ set mxtics 2
 set xtics rotate
 unset key
 
-set ytics 0,200,900000 nomirror tc lt 1
+set ytics 0,10000,10000000 nomirror tc lt 1
 set mytics 2
 
-set y2tics 0,2000,10000000 nomirror tc lt 2
+set y2tics 0,10000,10000000 nomirror tc lt 2
 set my2tics 2
 
 #stats "weekly.dat" u 1:4 nooutput

@@ -36,7 +36,7 @@ set my2tics 2
 
 stats "weekly.dat" u 1:4 nooutput
 set y2range [0:1.1*STATS_max_y]
-set y2label "Percent of total supply" offset -1,0
+set y2label "Total supply" offset -1,0
 
 stats "weekly.dat" u 1:3 nooutput
 set yrange [0.9*STATS_min_y:1.05*STATS_max_y]

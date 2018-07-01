@@ -36,8 +36,8 @@ ts_now = delta.total_seconds()
 
 wv = 0
 qv = 0
-datew = d0  # 
-dateq = d0  # 
+datew = d0
+dateq = d0
 tv = 0
 t1 = 0
 t2 = 0
@@ -49,14 +49,15 @@ t0 = amount[0]['timeStamp']  # time (s) of first tx
 with open('quarterly.dat','w+') as f2:
   with open('weekly.dat','w+') as f:
     for i in range(0,length):
-      ts = amount[i]['timeStamp']  # read current timeStamp (s)
-      x = int(amount[i]['value'])  # volume for ith tx
-      wv = wv + x  # accumulate tx amounts 
-      qv = qv + x  # accumulate tx amounts 
-      tv = tv + x  # accumulate tx amounts 
-      tc = int(ts) - int(t0)  # time (s) since first tx
-      t1 = tc - tstore1  # time (s) since last reset
-      t2 = tc - tstore2  # time (s) since last reset
+      if amount[i]['from'] != '0x0000000000000000000000000000000000000000'
+        ts = amount[i]['timeStamp']  # read current timeStamp (s)
+        x = int(amount[i]['value'])  # volume for ith tx
+        wv = wv + x  # accumulate tx amounts 
+        qv = qv + x  # accumulate tx amounts 
+        tv = tv + x  # accumulate tx amounts 
+        tc = int(ts) - int(t0)  # time (s) since first tx
+        t1 = tc - tstore1  # time (s) since last reset
+        t2 = tc - tstore2  # time (s) since last reset
       if t1 >= week:
         cw += 1 # count
         y = round(float(wv)/1e9,2)

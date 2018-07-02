@@ -51,7 +51,7 @@ with open('quarterly.dat','w+') as f2:
   with open('weekly.dat','w+') as f:
     for i in range(0,length):
       x = int(amount[i]['value'])  # volume for ith tx
-      if amount[i]['from'] != '0x0000000000000000000000000000000000000000' or amount[i]['to'] == '0xfdf28bf25779ed4ca74e958d54653260af604c20':
+      if amount[i]['from'] != '0x0000000000000000000000000000000000000000':
         ts = amount[i]['timeStamp']  # read current timeStamp (s)
         wv = wv + x  # accumulate tx amounts 
         qv = qv + x  # accumulate tx amounts 

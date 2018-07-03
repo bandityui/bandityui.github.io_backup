@@ -35,17 +35,21 @@ delta = now - d0
 ts_now = delta.total_seconds()
 
 wv = 0
-tv = 0
+qv = 0
 datew = d0
+dateq = d0
+tv = 0
 mintv = 0
 t1 = 0
+t2 = 0
 cw = 0
+cq = 0
 tstore1 = 0
-istart = 19
-t0 = amount[istart]['timeStamp']  # time (s) of first tx 
+tstore2 = 0
+t0 = amount[0]['timeStamp']  # time (s) of first tx 
 with open('quarterly.dat','w+') as f2:
   with open('weekly.dat','w+') as f:
-    for i in range(istart,length):
+    for i in range(0,length):
       x = int(amount[i]['value'])  # volume for ith tx
       if amount[i]['from'] == '0x0000000000000000000000000000000000000000':
         y = round(float(x)/1e9,2)
@@ -53,17 +57,21 @@ with open('quarterly.dat','w+') as f2:
       elif amount[i]['to'] == '0x0000000000000000000000000000000000000000':
         wv = wv - x  # these are recasting txs
         qv = qv - x  # these are recasting txs
+        tv = tv - x  # these are recasting txs
         y = round(float(x)/1e9,2)
         mintv = mintv - y  
         ts = amount[i]['timeStamp']  # read current timeStamp (s)
         tc = int(ts) - int(t0)  # time (s) since first tx
         t1 = tc - tstore1  # time (s) since last reset
+        t2 = tc - tstore2  # time (s) since last reset
       else:
         ts = amount[i]['timeStamp']  # read current timeStamp (s)
         wv = wv + x  # accumulate tx amounts 
+        qv = qv + x  # accumulate tx amounts 
         tv = tv + x  # accumulate tx amounts 
         tc = int(ts) - int(t0)  # time (s) since first tx
         t1 = tc - tstore1  # time (s) since last reset
+        t2 = tc - tstore2  # time (s) since last reset
       if t1 >= week:
         cw += 1 # count
         y = round(float(wv)/1e9,2)
@@ -73,10 +81,22 @@ with open('quarterly.dat','w+') as f2:
         tstore1 = tc
         t1 = 0
         wv = 0
+      elif t2 >= quarter:
+        cq += 1 # count
+        y = round(float(qv)/1e9,2)
+        f2.write(str(dateq) + ' ' + str(y) + '\n')  # write week number, volume to file
+        dateq = dateq + datetime.timedelta(days=90)
+        tstore2 = tc
+        t2 = 0
+        qv = 0
+    # current (unfinished week) and quarter volume
     wv = round(float(wv)/1e9,2)
     f.write(str(datew) + ' ' + str(wv) + ' ' + str(mintv) + '\n')  # write week number, volume to file
     print(str(datew.strftime("%d/%m/%Y")) + "|" + str(wv))
+    qv = round(float(qv)/1e9,2)
     tv = round(float(tv)/1e9,2)
+
+
 
 # All-time volume table
 #print("Current Quarter |" + str(dateq.strftime("%d/%m/%Y")) + "|" + str(qv) )

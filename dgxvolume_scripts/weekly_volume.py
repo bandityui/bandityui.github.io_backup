@@ -41,18 +41,17 @@ mintv = 0
 t1 = 0
 cw = 0
 tstore1 = 0
-istart = 19
+istart = 0
 t0 = amount[istart]['timeStamp']  # time (s) of first tx 
 with open('quarterly.dat','w+') as f2:
   with open('weekly.dat','w+') as f:
     for i in range(istart,length):
       x = int(amount[i]['value'])  # volume for ith tx
-      if amount[i]['from'] == '0x0000000000000000000000000000000000000000':
+      if amount[i]['from'] == '0x0000000000000000000000000000000000000000':  # if from 0x0 (minting)
         y = round(float(x)/1e9,2)
         mintv = mintv + y  # DGX minted 
-      elif amount[i]['to'] == '0x0000000000000000000000000000000000000000':
+      elif amount[i]['to'] == '0x0000000000000000000000000000000000000000':  # if to 0x0 (recasting)
         wv = wv - x  # these are recasting txs
-        qv = qv - x  # these are recasting txs
         y = round(float(x)/1e9,2)
         mintv = mintv - y  
         ts = amount[i]['timeStamp']  # read current timeStamp (s)

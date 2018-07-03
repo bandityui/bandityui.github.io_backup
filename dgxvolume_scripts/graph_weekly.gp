@@ -3,7 +3,7 @@
 # for GNUPLOT5.0
 reset
 set output "out.eps"
-set term post eps color enh "Times-Bold" 26
+set term post eps color enh "Times-Bold" 22
 set encoding utf8
 #set grid
 

@@ -51,7 +51,20 @@ with open('quarterly.dat','w+') as f2:
   with open('weekly.dat','w+') as f:
     for i in range(0,length):
       x = int(amount[i]['value'])  # volume for ith tx
-      if amount[i]['from'] != '0x0000000000000000000000000000000000000000':
+      if amount[i]['from'] == '0x0000000000000000000000000000000000000000':
+        y = round(float(x)/1e9,2)
+        mintv = mintv + y  # DGX minted 
+      elif amount[i]['to'] == '0x0000000000000000000000000000000000000000':
+        wv = wv - x  # these are recasting txs
+        qv = qv - x  # these are recasting txs
+        tv = tv - x  # these are recasting txs
+        y = round(float(x)/1e9,2)
+        mintv = mintv - y  
+        ts = amount[i]['timeStamp']  # read current timeStamp (s)
+        tc = int(ts) - int(t0)  # time (s) since first tx
+        t1 = tc - tstore1  # time (s) since last reset
+        t2 = tc - tstore2  # time (s) since last reset
+      else:
         ts = amount[i]['timeStamp']  # read current timeStamp (s)
         wv = wv + x  # accumulate tx amounts 
         qv = qv + x  # accumulate tx amounts 
@@ -59,9 +72,6 @@ with open('quarterly.dat','w+') as f2:
         tc = int(ts) - int(t0)  # time (s) since first tx
         t1 = tc - tstore1  # time (s) since last reset
         t2 = tc - tstore2  # time (s) since last reset
-      else:
-        y = round(float(x)/1e9,2)
-        mintv = mintv + y  # DGX minted 
       if t1 >= week:
         cw += 1 # count
         y = round(float(wv)/1e9,2)

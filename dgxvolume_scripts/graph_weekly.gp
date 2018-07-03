@@ -43,7 +43,7 @@ set yrange [0.9*STATS_min_y:1.05*STATS_max_y]
 
 set xdata time
 set timefmt "%Y-%m-%d %H:$M"
-set format x "%d/%m"
+set format x "%d/%m/$Y"
 
 LW=4.0
 p 'weekly.dat' u 1:3 w lp pt 5 lw LW t "Weekly on-chain volume",\

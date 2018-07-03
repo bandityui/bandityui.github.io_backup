@@ -48,12 +48,10 @@ with open('quarterly.dat','w+') as f2:
     for i in range(istart,length):
       x = int(amount[i]['value'])  # volume for ith tx
       if amount[i]['from'] == '0x0000000000000000000000000000000000000000':  # if from 0x0 (minting)
-        y = round(float(x)/1e9,2)
-        mintv = mintv + y  # DGX minted 
+        mintv = mintv + x  # DGX minted 
       elif amount[i]['to'] == '0x0000000000000000000000000000000000000000':  # if to 0x0 (recasting)
         wv = wv - x  # these are recasting txs
-        y = round(float(x)/1e9,2)
-        mintv = mintv - y  
+        mintv = mintv - x  
         ts = amount[i]['timeStamp']  # read current timeStamp (s)
         tc = int(ts) - int(t0)  # time (s) since first tx
         t1 = tc - tstore1  # time (s) since last reset
@@ -67,6 +65,7 @@ with open('quarterly.dat','w+') as f2:
         cw += 1 # count
         y = round(float(wv)/1e9,2)
         print(str(datew.strftime("%d/%m/%Y")) + "|" + str(y))
+        mintv = round(float(mintv)/1e9,2)
         f.write(str(datew) + ' ' + str(y) + ' ' + str(mintv) + '\n')  # write week number, volume to file
         datew = datew + datetime.timedelta(days=7)
         tstore1 = tc

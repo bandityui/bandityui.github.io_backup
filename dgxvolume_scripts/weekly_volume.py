@@ -41,11 +41,10 @@ mintv = 0
 t1 = 0
 cw = 0
 tstore1 = 0
-istart = 0
-t0 = amount[istart]['timeStamp']  # time (s) of first tx 
+t0 = amount[0]['timeStamp']  # time (s) of first tx 
 with open('quarterly.dat','w+') as f2:
   with open('weekly.dat','w+') as f:
-    for i in range(istart,length):
+    for i in range(0,length):
       x = int(amount[i]['value'])  # volume for ith tx
       if amount[i]['from'] == '0x0000000000000000000000000000000000000000':  # if from 0x0 (minting)
         mintv = mintv + x  # DGX minted 
@@ -65,14 +64,15 @@ with open('quarterly.dat','w+') as f2:
         cw += 1 # count
         y = round(float(wv)/1e9,2)
         print(str(datew.strftime("%d/%m/%Y")) + "|" + str(y))
-        mintv = round(float(mintv)/1e9,2)
-        f.write(str(datew) + ' ' + str(y) + ' ' + str(mintv) + '\n')  # write week number, volume to file
+        y2 = round(float(mintv)/1e9,2)
+        f.write(str(datew) + ' ' + str(y) + ' ' + str(y2) + '\n')  # write week number, volume to file
         datew = datew + datetime.timedelta(days=7)
         tstore1 = tc
         t1 = 0
         wv = 0
     wv = round(float(wv)/1e9,2)
-    f.write(str(datew) + ' ' + str(wv) + ' ' + str(mintv) + '\n')  # write week number, volume to file
+    y2 = round(float(mintv)/1e9,2)
+    f.write(str(datew) + ' ' + str(wv) + ' ' + str(y2) + '\n')  # write week number, volume to file
     print(str(datew.strftime("%d/%m/%Y")) + "|" + str(wv))
     tv = round(float(tv)/1e9,2)
 

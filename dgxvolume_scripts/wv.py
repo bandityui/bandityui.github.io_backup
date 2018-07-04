@@ -42,17 +42,15 @@ with open('weekly.dat','w+') as f:		# open file for writing
   mintv = 0					# total supply
   t0 = amount[0]['timeStamp']                   # time of first tx
   for i in range(0,length):
-    x = int(amount[i]['value'])  		# volume for ith tx
-    tv = tv + x					# accumulate total volume
+    vi = int(amount[i]['value'])              # volume of ith tx
     ti = amount[i]['timeStamp']        	        # time of ith tx
     dt = int(ti) - int(t0)                      # seconds since t0
     if amount[i]['from'] == '0x0000000000000000000000000000000000000000':  # if from 0x0 (minting)
-      mintv = mintv + x  # DGX minted 
+      mintv = mintv + vi  # DGX minted 
     elif amount[i]['to'] == '0x0000000000000000000000000000000000000000':  # if to 0x0 (recasting)
-      wv = wv - x  # these are recasting txs
-      mintv = mintv - x  
+      wv = wv - vi  # these are recasting txs
+      mintv = mintv - vi  
     else:					# else is a normal tx
-      vi = int(amount[i]['value'])              # volume of ith tx
       wv = wv + vi                              # accumulate weekly volume
       tv = tv + vi                              # accumulate total volume
     if dt >= cw*week:                           # if dt > cw weeks

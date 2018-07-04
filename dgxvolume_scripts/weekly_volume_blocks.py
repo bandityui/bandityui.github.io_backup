@@ -24,7 +24,8 @@ print("Week Starting | Volume (DGX)")
 print("--- | ---")
 
 # loop over whole list of txs
-hour = 3600
+tblock = 14.4
+hour = 3600/tblock
 day  = 24*hour
 week = 7*day
 quarter = 90*day
@@ -38,10 +39,10 @@ wv = 0
 tv = 0
 datew = d0
 mintv = 0
-t1 = 0
+b1 = 0
 cw = 0
-tstore1 = 0
-t0 = amount[0]['timeStamp']  # time (s) of first tx 
+bstore1 = 0
+b0 = amount[0]['blockNumber']  # block number of first tx 
 with open('quarterly.dat','w+') as f2:
   with open('weekly.dat','w+') as f:
     for i in range(0,length):
@@ -51,24 +52,24 @@ with open('quarterly.dat','w+') as f2:
       elif amount[i]['to'] == '0x0000000000000000000000000000000000000000':  # if to 0x0 (recasting)
         wv = wv - x  # these are recasting txs
         mintv = mintv - x  
-        ts = amount[i]['timeStamp']  # read current timeStamp (s)
-        tc = int(ts) - int(t0)  # time (s) since first tx
-        t1 = tc - tstore1  # time (s) since last reset
+        bs = amount[i]['blockNumber']  # read current block number
+        bc = int(bs) - int(b0)  # blocks since first tx
+        b1 = bc - bstore1  # blocks since last reset
       else:
-        ts = amount[i]['timeStamp']  # read current timeStamp (s)
+        bs = amount[i]['blockNumber']  # read current block number
         wv = wv + x  # accumulate tx amounts 
         tv = tv + x  # accumulate tx amounts 
-        tc = int(ts) - int(t0)  # time (s) since first tx
-        t1 = tc - tstore1  # time (s) since last reset
-      if t1 >= week:
+        bc = int(bs) - int(b0)  # blocks since first tx
+        b1 = bc - bstore1  # blocks since last reset
+      if b1 >= week:
         cw += 1 # count
         y = round(float(wv)/1e9,2)
         print(str(datew.strftime("%d/%m/%Y")) + "|" + str(y))
         y2 = round(float(mintv)/1e9,2)
         f.write(str(datew) + ' ' + str(y) + ' ' + str(y2) + '\n')  # write week number, volume to file
         datew = datew + datetime.timedelta(days=7)
-        tstore1 = tc
-        t1 = 0
+        bstore1 = bc
+        b1 = 0
         wv = 0
     wv = round(float(wv)/1e9,2)
     y2 = round(float(mintv)/1e9,2)

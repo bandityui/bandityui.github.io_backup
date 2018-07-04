@@ -18,10 +18,6 @@ length = len(amount)
 print("This page updates hourly using data from the [DGX contract address (etherscan)](https://etherscan.io/token/0x4f3afec4e5a3f2a6a1a411def7d7dfe50ee057bf). Last updated:")
 print(now.strftime("%Y-%m-%d %H:%M") + ' UTC\n')
 
-# Begin weekly table
-print("### Weekly volume table\n")
-print("Week Starting | Volume (DGX)")
-print("--- | ---")
 
 # loop over whole list of txs
 hour = 3600
@@ -30,9 +26,19 @@ week = 7*day
 quarter = 90*day
 
 # seconds from beginning
-d0 = datetime.datetime(2018, 3, 26, 0, 0)
+d0 = datetime.datetime(2018, 3, 23, 8, 58)
 delta = now - d0
 ts_now = delta.total_seconds()
+t0 = amount[0]['timeStamp']  # time (s) of first tx 
+tlast = amount[length-1]['timeStamp']  # time (s) of first tx 
+a = int(ts_now) - (int(tlast) - int(t0))
+with open('tsince_lasttx.txt','w+') as f:
+  f.write(str(a))
+
+# Begin weekly table
+print("### Weekly volume table\n")
+print("Week Starting | Volume (DGX)")
+print("--- | ---")
 
 wv = 0
 tv = 0
@@ -41,40 +47,38 @@ mintv = 0
 t1 = 0
 cw = 0
 tstore1 = 0
-t0 = amount[0]['timeStamp']  # time (s) of first tx 
-with open('quarterly.dat','w+') as f2:
-  with open('weekly.dat','w+') as f:
-    for i in range(0,length):
-      x = int(amount[i]['value'])  # volume for ith tx
-      if amount[i]['from'] == '0x0000000000000000000000000000000000000000':  # if from 0x0 (minting)
-        mintv = mintv + x  # DGX minted 
-      elif amount[i]['to'] == '0x0000000000000000000000000000000000000000':  # if to 0x0 (recasting)
-        wv = wv - x  # these are recasting txs
-        mintv = mintv - x  
-        ts = amount[i]['timeStamp']  # read current timeStamp (s)
-        tc = int(ts) - int(t0)  # time (s) since first tx
-        t1 = tc - tstore1  # time (s) since last reset
-      else:
-        ts = amount[i]['timeStamp']  # read current timeStamp (s)
-        wv = wv + x  # accumulate tx amounts 
-        tv = tv + x  # accumulate tx amounts 
-        tc = int(ts) - int(t0)  # time (s) since first tx
-        t1 = tc - tstore1  # time (s) since last reset
-      if t1 >= week:
-        cw += 1 # count
-        y = round(float(wv)/1e9,2)
-        print(str(datew.strftime("%d/%m/%Y")) + "|" + str(y))
-        y2 = round(float(mintv)/1e9,2)
-        f.write(str(datew) + ' ' + str(y) + ' ' + str(y2) + '\n')  # write week number, volume to file
-        datew = datew + datetime.timedelta(days=7)
-        tstore1 = tc
-        t1 = 0
-        wv = 0
-    wv = round(float(wv)/1e9,2)
-    y2 = round(float(mintv)/1e9,2)
-    f.write(str(datew) + ' ' + str(wv) + ' ' + str(y2) + '\n')  # write week number, volume to file
-    print(str(datew.strftime("%d/%m/%Y")) + "|" + str(wv))
-    tv = round(float(tv)/1e9,2)
+with open('weekly.dat','w+') as f:
+  for i in range(0,length):
+    x = int(amount[i]['value'])  # volume for ith tx
+    if amount[i]['from'] == '0x0000000000000000000000000000000000000000':  # if from 0x0 (minting)
+      mintv = mintv + x  # DGX minted 
+    elif amount[i]['to'] == '0x0000000000000000000000000000000000000000':  # if to 0x0 (recasting)
+      wv = wv - x  # these are recasting txs
+      mintv = mintv - x  
+      ts = amount[i]['timeStamp']  # read current timeStamp (s)
+      tc = int(ts) - int(t0)  # time (s) since first tx
+      t1 = tc - tstore1  # time (s) since last reset
+    else:
+      ts = amount[i]['timeStamp']  # read current timeStamp (s)
+      wv = wv + x  # accumulate tx amounts 
+      tv = tv + x  # accumulate tx amounts 
+      tc = int(ts) - int(t0)  # time (s) since first tx
+      t1 = tc - tstore1  # time (s) since last reset
+    if t1 >= week:
+      cw += 1 # count
+      y = round(float(wv)/1e9,2)
+      print(str(datew.strftime("%d/%m/%Y")) + "|" + str(y))
+      y2 = round(float(mintv)/1e9,2)
+      f.write(str(datew) + ' ' + str(y) + ' ' + str(y2) + '\n')  # write week number, volume to file
+      datew = datew + datetime.timedelta(days=7)
+      tstore1 = tc
+      t1 = 0
+      wv = 0
+  wv = round(float(wv)/1e9,2)
+  y2 = round(float(mintv)/1e9,2)
+  f.write(str(datew) + ' ' + str(wv) + ' ' + str(y2) + '\n')  # write week number, volume to file
+  print(str(datew.strftime("%d/%m/%Y")) + "|" + str(wv))
+  tv = round(float(tv)/1e9,2)
 
 # All-time volume table
 #print("Current Quarter |" + str(dateq.strftime("%d/%m/%Y")) + "|" + str(qv) )

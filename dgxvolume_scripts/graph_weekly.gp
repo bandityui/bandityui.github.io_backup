@@ -45,14 +45,14 @@ set xdata time
 set timefmt "%Y-%m-%d %H:$M"
 set format x "%d/%m/%Y"
 
-LW=4.0
+LW=3.0
 
 binwidth = 5
 bin(t) = (t - (int(t) % binwidth))
-set boxwidth 8e4*binwidth absolute
+set boxwidth 6e4*binwidth absolute
 
 p 'weekly.dat' u 1:(bin($3)) lt 6 lw LW smooth freq with boxes,\
-  '' u 1:4 w lp lt 7 pt 3 lw LW axes x1y2
+  '' u 1:4 w l lt 7 lw LW axes x1y2
 
 #p 'weekly.dat' u 1:3 w lp pt 5 lw LW t "Weekly on-chain volume",\
   #'' u 1:4 w lp pt 3 lw LW axes x1y2 t "Total supply"

@@ -50,8 +50,7 @@ with open('daily.dat','w+') as f:		# open file for writing
       dv = dv + vi                              # accumulate weekly volume
       tv = tv + vi                              # accumulate total volume
     if dt > cd*day:                             # if dt > cd days
-      print('dt = ' + str(float(dt/day)) + ', cd = ' + str(cd))
-      cd = int(dt/day + cd) + 1                     # +n days
+      cd = int(dt/day) + 1                      # amount of days passed
       y = round(float(dv)/1e9,2)                # round
       y2 = round(float(ts)/1e9,2)
       print(str(di.strftime("%d/%m/%Y")) + "|" + str(y))  # print information to file

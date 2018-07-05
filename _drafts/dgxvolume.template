@@ -5,6 +5,7 @@ date:   VALUE
 categories: DGX
 ---
 
-![DGX volume graph](dgxvolume_scripts/out.png)
+![DGX daily volume graph](dgxvolume_scripts/daily.png)
 
+![DGX weekly volume graph](dgxvolume_scripts/out.png)
 

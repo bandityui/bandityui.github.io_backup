@@ -44,11 +44,9 @@ with open('weekly.dat','w+') as f:		# open file for writing
     ti = int(amount[i]['timeStamp'])	        # time of ith tx
     dt = ti - t0	                        # seconds since t0
     if amount[i]['from'] == '0x0000000000000000000000000000000000000000':  # if from 0x0 (minting)
-      ts = ts + vi  # DGX minted 
+      ts = ts + vi  # Minting increases total supply
     elif amount[i]['to'] == '0x0000000000000000000000000000000000000000':  # if to 0x0 (recasting)
-      wv = wv - vi  # these are recasting txs
-      tv = tv - vi
-      ts = ts - vi  
+      ts = ts - vi  # Recasting decreases total supply
     else:					# else is a normal tx
       wv = wv + vi                              # accumulate weekly volume
       tv = tv + vi                              # accumulate total volume
@@ -79,4 +77,39 @@ print("| DGX Total Supply |")
 print("| --- |")
 print("|" + str(y2) + "|\n")
 
+def dv():
+  '''
+  dv: writes datetime and daily volume to 'daily.dat' file
+  '''
+  
+  dv = 0                                        # daily volume 
+  tv = 0                                        # total volume
+  cd = 1                                        # day counter (start at 1)
+  ts = 0				       	# total supply
+  di = d0 					# start on d0
 
+  with open('daily.dat','w+') as f:		# open file for writing
+    for i in range(0,length):
+      vi = int(amount[i]['value'])              # volume of ith tx
+      ti = int(amount[i]['timeStamp'])	        # time of ith tx
+      dt = ti - t0	                        # seconds since t0
+      if amount[i]['from'] == '0x0000000000000000000000000000000000000000':  # if from 0x0 (minting)
+        ts = ts + vi  # Minting increases total supply
+      elif amount[i]['to'] == '0x0000000000000000000000000000000000000000':  # if to 0x0 (recasting)
+        ts = ts - vi  # Recasting decreases total supply
+      else:					# else is a normal tx
+        dv = dv + vi                            # accumulate weekly volume
+      if dt > cd*day:                           # if dt > cd days
+        cd = int(dt/day) + 1                    # amount of days passed
+        y1 = round(float(dv)/1e9,2)             # round
+        y2 = round(float(ts)/1e9,2)
+        f.write(str(di) + ' ' + str(y1) + ' ' + str(y2) + '\n')    # write date and volume to file
+        di = d0 + datetime.timedelta(seconds=dt)  # datetime of ith tx
+        dv = 0                                    # reset weekly volume 
+    dv = round(float(dv)/1e9,2)                   # current, unfinished week
+    y2 = round(float(ts)/1e9,2)
+    f.write(str(di) + ' ' + str(dv) + ' ' + str(y2) + '\n')   	   # write date and volume to file
+
+  return
+
+dv()

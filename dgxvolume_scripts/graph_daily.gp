@@ -28,7 +28,7 @@ set mxtics 2
 set xtics rotate
 unset key
 
-set ytics 0,10000,10000000 nomirror tc lt 1
+set ytics 0,100,10000000 nomirror tc lt 1
 set mytics 2
 
 set y2tics 0,10000,10000000 nomirror tc lt 2
@@ -46,7 +46,7 @@ set timefmt "%Y-%m-%d %H:$M"
 set format x "%d/%m/%Y"
 
 LW=4.0
-p 'weekly.dat' u 1:3 w l lt 1 lw LW t "Daily on-chain volume",\
+p 'daily.dat' u 1:3 w l lt 1 lw LW t "Daily on-chain volume",\
   '' u 1:4 w l lt 2 lw LW axes x1y2 t "Total supply"
 
 unset multiplot

@@ -23,20 +23,20 @@ show xrange
 #set yrange [0 : 1000]
 show yrange
 set xlabel ""
-set ylabel "Weekly on-chain volume (DGX)"
+set ylabel "Weekly on-chain volume (DGX)" offset 1,0
 set mxtics 2
 set xtics rotate
 unset key
 
-set ytics 0,10000,10000000 nomirror tc lt 1
+set ytics 0,10000,10000000 nomirror tc lt 6
 set mytics 2
 
-set y2tics 0,10000,10000000 nomirror tc lt 2
+set y2tics 0,10000,10000000 nomirror tc lt 7
 set my2tics 2
 
 stats "weekly.dat" u 1:4 nooutput
 set y2range [0:1.1*STATS_max_y]
-set y2label "Total supply (DGX)" offset -1,0
+set y2label "Total supply (DGX)" offset -1.5,0
 
 stats "weekly.dat" u 1:3 nooutput
 set yrange [0.9*STATS_min_y:1.05*STATS_max_y]
@@ -46,8 +46,17 @@ set timefmt "%Y-%m-%d %H:$M"
 set format x "%d/%m/%Y"
 
 LW=4.0
-p 'weekly.dat' u 1:3 w lp pt 5 lw LW t "Weekly on-chain volume",\
-  '' u 1:4 w lp pt 3 lw LW axes x1y2 t "Total supply"
+
+binwidth = 5
+bin(t) = (t - (int(t) % binwidth))
+set boxwidth 8e4*binwidth absolute
+
+p 'weekly.dat' u 1:(bin($3)) lt 6 lw LW smooth freq with boxes,\
+  '' u 1:4 w lp lt 7 pt 3 lw LW axes x1y2
+
+#p 'weekly.dat' u 1:3 w lp pt 5 lw LW t "Weekly on-chain volume",\
+  #'' u 1:4 w lp pt 3 lw LW axes x1y2 t "Total supply"
 
 unset multiplot
+
 

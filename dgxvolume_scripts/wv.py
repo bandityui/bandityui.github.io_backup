@@ -47,6 +47,10 @@ with open('weekly.dat','w+') as f:		# open file for writing
       ts = ts + vi  # Minting increases total supply
     elif amount[i]['to'] == '0x0000000000000000000000000000000000000000':  # if to 0x0 (recasting)
       ts = ts - vi  # Recasting decreases total supply
+    elif amount[i]['to'] == '0x26cab6888d95cf4a1b32bd37d4091aa0e29e7f68':  # recast fee collector
+      # Do nothing. I could count and graph recast fees 
+    elif amount[i]['to'] == '0x00a55973720245819ec59c716b7537dac5ed4617':  # tx fee collector
+      # Do nothing. I could count and graph tx fees 
     else:					# else is a normal tx
       wv = wv + vi                              # accumulate weekly volume
       tv = tv + vi                              # accumulate total volume
@@ -97,6 +101,10 @@ def dv():
         ts = ts + vi  # Minting increases total supply
       elif amount[i]['to'] == '0x0000000000000000000000000000000000000000':  # if to 0x0 (recasting)
         ts = ts - vi  # Recasting decreases total supply
+      elif amount[i]['to'] == '0x26cab6888d95cf4a1b32bd37d4091aa0e29e7f68':  # recast fee collector
+        # Do nothing. I could count and graph recast fees 
+      elif amount[i]['to'] == '0x00a55973720245819ec59c716b7537dac5ed4617':  # tx fee collector
+        # Do nothing. I could count and graph tx fees 
       else:					# else is a normal tx
         dv = dv + vi                            # accumulate weekly volume
       if dt > cd*day:                           # if dt > cd days

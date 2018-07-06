@@ -43,26 +43,36 @@ with open('weekly.dat','w+') as f:		# open file for writing
   for i in range(0,length):
     vi = int(amount[i]['value'])                # volume of ith tx
     ti = int(amount[i]['timeStamp'])	        # time of ith tx
+    ato = amount[i]['to']			# to of ith tx
+    afrom = amount[i]['from']			# from of ith tx
+    if i > 0:
+      afrom1 = amount[i-1]['from']		# from of (i-1)th tx
     dt = ti - t0	                        # seconds since t0
-    if amount[i]['from'] == '0x0000000000000000000000000000000000000000':  # if from 0x0 (minting)
+    if afrom == '0x0000000000000000000000000000000000000000':  # if from 0x0 (minting)
       ts = ts + vi  # Minting increases total supply
-    elif amount[i]['to'] == '0x0000000000000000000000000000000000000000':  # if to 0x0 (recasting)
+    elif ato == '0x0000000000000000000000000000000000000000':  # if to 0x0 (recasting)
       ts = ts - vi  # Recasting decreases total supply
-    elif amount[i]['to'] == '0x26cab6888d95cf4a1b32bd37d4091aa0e29e7f68':  # recast fee collector
+    elif ato == '0x26cab6888d95cf4a1b32bd37d4091aa0e29e7f68':  # recast fee collector
       pass
-    elif amount[i]['to'] == '0x00a55973720245819ec59c716b7537dac5ed4617':  # tx fee collector
+    elif ato == '0x00a55973720245819ec59c716b7537dac5ed4617':  # tx fee collector
       tx = tx + vi
-    elif amount[i]['to'] == '0x964F35fAe36d75B1e72770e244F6595B68508CF5':  # kyber contract 
-      print('kyber')
+    #elif amount[i]['to'] == '0x964f35fae36d75b1e72770e244f6595b68508cf5':  # kyber contract 
+      #print('kyber')
+    elif afrom == afrom1:  # When e.g. 10 DGX is sent 3 tx occur 10, 9.987, and 0.013 (the tx fee), this conditional avoids counting the 9.987 
+      print('i-1th volume:' + str(int(amount[i-1]['value'])))
+      print('ith volume:' + str(vi))
+      if i<length-1:
+        print('i+1th volume:' + str(int(amount[i+1]['value'])))
+      continue
     else:					# else is a normal tx
       wv = wv + vi                              # accumulate weekly volume
       tv = tv + vi                              # accumulate total volume
     if dt > cw*week:                            # if dt > cw weeks
       cw += 1                                   # +1 week
-      y = round(float(wv)/1e9,2)                # round
+      y1 = round(float(wv)/1e9,2)                # round
       y2 = round(float(ts)/1e9,2)
-      print(str(di.strftime("%d/%m/%Y")) + "|" + str(y))  # print information to file
-      f.write(str(di) + ' ' + str(y) + ' ' + str(y2) + '\n')    # write week number, volume to file
+      print(str(di.strftime("%d/%m/%Y")) + "|" + str(y1))  # print information to file
+      f.write(str(di) + ' ' + str(y1) + ' ' + str(y2) + '\n')    # write week number, volume to file
       di = d0 + datetime.timedelta(seconds=dt)  # datetime of ith tx
       wv = 0                                    # reset weekly volume 
   wv = round(float(wv)/1e9,2)                     # current, unfinished week

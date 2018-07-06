@@ -113,17 +113,29 @@ def dv():
 
   with open('daily.dat','w+') as f:		# open file for writing
     for i in range(0,length):
-      vi = int(amount[i]['value'])              # volume of ith tx
+      vi = int(amount[i]['value'])                # volume of ith tx
       ti = int(amount[i]['timeStamp'])	        # time of ith tx
       dt = ti - t0	                        # seconds since t0
-      if amount[i]['from'] == '0x0000000000000000000000000000000000000000':  # if from 0x0 (minting)
+      ato = amount[i]['to']			# to of ith tx
+      afrom = amount[i]['from']			# from of ith tx
+      if i > 0:
+        afrom1 = amount[i-1]['from']		# from of (i-1)th tx
+      if afrom == '0x0000000000000000000000000000000000000000':  # if from 0x0 (minting)
         ts = ts + vi  # Minting increases total supply
-      elif amount[i]['to'] == '0x0000000000000000000000000000000000000000':  # if to 0x0 (recasting)
+      elif ato == '0x0000000000000000000000000000000000000000':  # if to 0x0 (recasting)
         ts = ts - vi  # Recasting decreases total supply
-      elif amount[i]['to'] == '0x26cab6888d95cf4a1b32bd37d4091aa0e29e7f68':  # recast fee collector
+      elif ato == '0x26cab6888d95cf4a1b32bd37d4091aa0e29e7f68':  # recast fee collector
         pass
-      elif amount[i]['to'] == '0x00a55973720245819ec59c716b7537dac5ed4617':  # tx fee collector
-        pass	
+      elif ato == '0x00a55973720245819ec59c716b7537dac5ed4617':  # tx fee collector
+        pass
+        #elif amount[i]['to'] == '0x964f35fae36d75b1e72770e244f6595b68508cf5':  # kyber contract 
+        #print('kyber')
+        '''
+        When e.g. 10 DGX is sent 3 tx occur: first 0.013 (the tx fee), then 9.987, lastly 10. 
+        This conditional avoids counting the 9.987 because the 0.013 and the 9.987 have the same 'from' address.
+        '''
+      elif afrom == afrom1:
+        continue
       else:					# else is a normal tx
         dv = dv + vi                            # accumulate weekly volume
       if dt > cd*day:                           # if dt > cd days

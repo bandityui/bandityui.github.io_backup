@@ -52,7 +52,7 @@ binwidth = 5
 bin(t) = (t - (int(t) % binwidth))
 set boxwidth 7e4*binwidth absolute
 
-p 'weekly.dat' u 1:(bin($3)) lt 6 lw LW smooth freq with boxes,\
+p 'weekly.dat' u 1:(bin($3+$4)) lt 6 lw LW smooth freq with boxes,\
   '' u 1:4 w l lt 7 lw LW axes x1y2
 
 #p 'weekly.dat' u 1:3 w lp pt 5 lw LW t "Weekly on-chain volume",\

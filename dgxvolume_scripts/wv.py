@@ -36,6 +36,7 @@ d0 = now - datetime.timedelta(seconds=dt)	# current time minus dt
 di = d0
 with open('weekly.dat','w+') as f:		# open file for writing
   wv = 0                                        # weekly volume 
+  vdigix = 0					# volume from digix marketplace
   tv = 0                                        # total volume
   cw = 1                                        # week counter (start at 1)
   ts = 0					# total supply
@@ -50,10 +51,10 @@ with open('weekly.dat','w+') as f:		# open file for writing
       afrom1 = amount[i-1]['from']		# from of (i-1)th tx
     if afrom == '0x0000000000000000000000000000000000000000':  # if from 0x0 (minting)
       ts = ts + vi  # Minting increases total supply
-    elif afrom == '0xd5be9efcc0fbea9b68fa8d1af641162bc92e83f2':  #  from digix marketplace
-      pass
     elif ato == '0x0000000000000000000000000000000000000000':  # if to 0x0 (recasting)
       ts = ts - vi  # Recasting decreases total supply
+      #elif afrom == '0xd5be9efcc0fbea9b68fa8d1af641162bc92e83f2':  #  from digix marketplace
+      #vdigix = vdigix + vi
     elif ato == '0x26cab6888d95cf4a1b32bd37d4091aa0e29e7f68':  # recast fee collector
       pass
     elif ato == '0x00a55973720245819ec59c716b7537dac5ed4617':  # tx fee collector
@@ -72,16 +73,16 @@ with open('weekly.dat','w+') as f:		# open file for writing
     if dt > cw*week:                            # if dt > cw weeks
       cw += 1                                   # +1 week
       y1 = round(float(wv)/1e9,2)                # round
+      print(str(di.strftime("%d/%m/%Y")) + "|" + str(y1))  # print information
       y2 = round(float(ts)/1e9,2)
-      print(str(di.strftime("%d/%m/%Y")) + "|" + str(y1))  # print information to file
       f.write(str(di) + ' ' + str(y1) + ' ' + str(y2) + '\n')    # write week number, volume to file
       di = d0 + datetime.timedelta(seconds=dt)  # datetime of ith tx
       wv = 0                                    # reset weekly volume 
-  wv = round(float(wv)/1e9,2)                     # current, unfinished week
-  tv = round(float(tv)/1e9,2)                     # round
-  ts = round(float(ts)/1e9,2)
-  f.write(str(di) + ' ' + str(wv) + ' ' + str(ts) + '\n')  # write week number, volume to file
-print(str(di.strftime("%d/%m/%Y")) + "|" + str(wv))
+      vdigix = 0                                # reset
+  y1 = round(float(wv)/1e9,2)                	# round
+  y2 = round(float(ts)/1e9,2)
+  f.write(str(di) + ' ' + str(y1) + ' ' + str(y2) + '\n')    # write week number, volume to file
+print(str(di.strftime("%d/%m/%Y")) + "|" + str(y1))
 
 # All-time volume table
 #print("Current Quarter |" + str(dateq.strftime("%d/%m/%Y")) + "|" + str(qv) )
@@ -89,6 +90,7 @@ print("\n")
 print("### All-time volume\n")
 print("| All-time volume (DGX) |")
 print("| --- |")
+tv = round(float(tv)/1e9,2)
 print("|" + str(tv) + "|\n")
 
 print("### Total transaction fees collected\n")
@@ -100,6 +102,7 @@ print("|" + str(tx) + "|\n")
 print("### Total Supply\n")
 print("| DGX Total Supply |")
 print("| --- |")
+ts = round(float(ts)/1e9,2)
 print("|" + str(ts) + "|\n")
 
 def dv():

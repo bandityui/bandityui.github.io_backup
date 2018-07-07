@@ -117,6 +117,7 @@ def dv():
   cd = 1                                        # day counter (start at 1)
   ts = 0				       	# total supply
   di = d0 					# start on d0
+  vdigix = 0
 
   with open('daily.dat','w+') as f:		# open file for writing
     for i in range(0,length):

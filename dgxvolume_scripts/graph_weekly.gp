@@ -34,11 +34,11 @@ set mytics 2
 set y2tics 0,10000,10000000 nomirror tc lt 7
 set my2tics 2
 
-stats "weekly.dat" u 1:5 nooutput
+stats "604800.dat" u 1:5 nooutput
 set y2range [0:1.1*STATS_max_y]
 set y2label "Total supply (DGX)" offset -1.5,0
 
-stats "weekly.dat" u 1:($3+$4) nooutput
+stats "604800.dat" u 1:($3+$4) nooutput
 set yrange [0.9*STATS_min_y:1.05*STATS_max_y]
 
 set xdata time

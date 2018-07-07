@@ -107,21 +107,21 @@ print("| --- |")
 ts = round(float(ts)/1e9,2)
 print("|" + str(ts) + "|\n")
 
-def dv():
+def xvolume(x):
   '''
-  dv: writes datetime and daily volume to 'daily.dat' file
+  xvolume: writes datetime and volume to .dat file every 'x' time-period (seconds) 
   '''
   
-  dv = 0                                        # daily volume 
+  xv = 0                                        # volume in time period 'x'
   tv = 0                                        # total volume
-  cd = 1                                        # day counter (start at 1)
+  cx = 1                                        # count time periods (start at 1)
   ts = 0				       	# total supply
   di = d0 					# start on d0
-  vdigix = 0
+  vdigix = 0					# volume from digix marketplace
 
-  with open('daily.dat','w+') as f:		# open file for writing
+  with open(str(x) + '.dat','w+') as f:		# open file for writing
     for i in range(0,length):
-      vi = int(amount[i]['value'])                # volume of ith tx
+      vi = int(amount[i]['value'])              # volume of ith tx
       ti = int(amount[i]['timeStamp'])	        # time of ith tx
       dt = ti - t0	                        # seconds since t0
       ato = amount[i]['to']			# to of ith tx
@@ -136,9 +136,6 @@ def dv():
         ts = ts - vi  # Recasting decreases total supply
       elif ato == '0x26cab6888d95cf4a1b32bd37d4091aa0e29e7f68':  # recast fee collector
         pass
-      elif afrom == '0xd5be9efcc0fbea9b68fa8d1af641162bc92e83f2':  #  from digix marketplace
-        vdigix = vdigix + vi
-        dv = dv + vi                            # accumulate weekly volume
       elif ato == '0x00a55973720245819ec59c716b7537dac5ed4617':  # tx fee collector
         pass
         #elif amount[i]['to'] == '0x964f35fae36d75b1e72770e244f6595b68508cf5':  # kyber contract 
@@ -149,21 +146,46 @@ def dv():
         '''
       elif afrom == afrom1:
         continue
+      elif afrom == '0xd5be9efcc0fbea9b68fa8d1af641162bc92e83f2':  #  from digix marketplace
+        vdigix = vdigix + vi
+        xv = xv + vi                            # accumulate weekly volume
       else:					# else is a normal tx
-        dv = dv + vi                            # accumulate weekly volume
-      if dt > cd*day:                           # if dt > cd days
-        cd = int(dt/day) + 1                    # amount of days passed
+        xv = xv + vi                            # accumulate weekly volume
+      if dt > cx*x:                             # if dt > cx multiples of x time periods
+        cx = int(dt/x) + 1                      # amount of x time periods passed
         y1 = round(float(dv)/1e9,2)             # round
+        print(str(di.strftime("%d/%m/%Y")) + "|" + str(y1))  # print information
         y2 = round(float(ts)/1e9,2)
         y3 = round(float(vdigix)/1e9,2)
-        f.write(str(di) + ' ' + str(y1) + ' ' + str(y3) + ' ' + str(y2) + '\n')    # write week number, volume to file
+        f.write(str(di) + ' ' + str(y1) + ' ' + str(y3) + ' ' + str(y2) + '\n')    # write date, volume to file
         di = d0 + datetime.timedelta(seconds=dt)  # datetime of ith tx
         dv = 0                                    # reset weekly volume 
     y1 = round(float(y1)/1e9,2)                   # current, unfinished week
     y2 = round(float(ts)/1e9,2)
     y3 = round(float(vdigix)/1e9,2)
-    f.write(str(di) + ' ' + str(y1) + ' ' + str(y3) + ' ' + str(y2) + '\n')    # write week number, volume to file
-
+    f.write(str(di) + ' ' + str(y1) + ' ' + str(y3) + ' ' + str(y2) + '\n')    	   # write date, volume to file
+  print(str(di.strftime("%d/%m/%Y")) + "|" + str(y1))
+  
+  # All-time volume table
+  #print("Current Quarter |" + str(dateq.strftime("%d/%m/%Y")) + "|" + str(qv) )
+  print("\n")
+  print("### All-time volume\n")
+  print("| All-time volume (DGX) |")
+  print("| --- |")
+  tv = round(float(tv)/1e9,2)
+  print("|" + str(tv) + "|\n")
+  
+  print("### Total transaction fees collected\n")
+  print("| Transaction fees (DGX) |")
+  print("| --- |")
+  tx = round(float(tx)/1e9,2)
+  print("|" + str(tx) + "|\n")
+  
+  print("### Total Supply\n")
+  print("| DGX Total Supply |")
+  print("| --- |")
+  ts = round(float(ts)/1e9,2)
+  print("|" + str(ts) + "|\n")
   return
 
-dv()
+xvolume()

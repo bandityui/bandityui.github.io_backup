@@ -61,6 +61,7 @@ with open('weekly.dat','w+') as f:		# open file for writing
       #print('kyber')
     elif afrom == '0xd5be9efcc0fbea9b68fa8d1af641162bc92e83f2':  #  from digix marketplace
       vdigix = vdigix + vi
+      wv = wv + vi                              # accumulate normal weekly volume
       tv = tv + vi                              # accumulate total volume
       '''
       When e.g. 10 DGX is sent 3 tx occur: first 0.013 (the tx fee), then 9.987, lastly 10. 
@@ -138,7 +139,7 @@ def dv():
         pass
       elif afrom == '0xd5be9efcc0fbea9b68fa8d1af641162bc92e83f2':  #  from digix marketplace
         vdigix = vdigix + vi
-        tv = tv + vi                              # accumulate total volume
+        dv = dv + vi                            # accumulate weekly volume
       elif ato == '0x00a55973720245819ec59c716b7537dac5ed4617':  # tx fee collector
         pass
         #elif amount[i]['to'] == '0x964f35fae36d75b1e72770e244f6595b68508cf5':  # kyber contract 

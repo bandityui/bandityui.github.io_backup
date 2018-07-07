@@ -136,6 +136,9 @@ def dv():
         ts = ts - vi  # Recasting decreases total supply
       elif ato == '0x26cab6888d95cf4a1b32bd37d4091aa0e29e7f68':  # recast fee collector
         pass
+      elif afrom == '0xd5be9efcc0fbea9b68fa8d1af641162bc92e83f2':  #  from digix marketplace
+        vdigix = vdigix + vi
+        tv = tv + vi                              # accumulate total volume
       elif ato == '0x00a55973720245819ec59c716b7537dac5ed4617':  # tx fee collector
         pass
         #elif amount[i]['to'] == '0x964f35fae36d75b1e72770e244f6595b68508cf5':  # kyber contract 
@@ -152,12 +155,14 @@ def dv():
         cd = int(dt/day) + 1                    # amount of days passed
         y1 = round(float(dv)/1e9,2)             # round
         y2 = round(float(ts)/1e9,2)
-        f.write(str(di) + ' ' + str(y1) + ' ' + str(y2) + '\n')    # write date and volume to file
+        y3 = round(float(vdigix)/1e9,2)
+        f.write(str(di) + ' ' + str(y1) + ' ' + str(y3) + ' ' + str(y2) + '\n')    # write week number, volume to file
         di = d0 + datetime.timedelta(seconds=dt)  # datetime of ith tx
         dv = 0                                    # reset weekly volume 
-    dv = round(float(dv)/1e9,2)                   # current, unfinished week
+    y1 = round(float(y1)/1e9,2)                   # current, unfinished week
     y2 = round(float(ts)/1e9,2)
-    f.write(str(di) + ' ' + str(dv) + ' ' + str(y2) + '\n')   	   # write date and volume to file
+    y3 = round(float(vdigix)/1e9,2)
+    f.write(str(di) + ' ' + str(y1) + ' ' + str(y3) + ' ' + str(y2) + '\n')    # write week number, volume to file
 
   return
 

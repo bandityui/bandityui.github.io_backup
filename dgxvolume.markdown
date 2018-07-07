@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "DGX on-chain volume"
-date:   2018-07-07 13:19:08.054956
+date:   2018-07-07 13:19:50.885559
 categories: DGX
 ---
 

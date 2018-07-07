@@ -76,14 +76,15 @@ with open('weekly.dat','w+') as f:		# open file for writing
       y1 = round(float(wv)/1e9,2)                # round
       print(str(di.strftime("%d/%m/%Y")) + "|" + str(y1))  # print information
       y2 = round(float(ts)/1e9,2)
-      f.write(str(di) + ' ' + str(y1) + ' ' + str(y2) + '\n')    # write week number, volume to file
+      y3 = round(float(vdigix)/1e9,2)
+      f.write(str(di) + ' ' + str(y1) + ' ' + str(y3) + ' ' + str(y2) + '\n')    # write week number, volume to file
       di = d0 + datetime.timedelta(seconds=dt)  # datetime of ith tx
       wv = 0                                    # reset weekly volume 
       vdigix = 0                                # reset
   y1 = round(float(wv)/1e9,2)                	# round
   y2 = round(float(ts)/1e9,2)
   y3 = round(float(vdigix)/1e9,2)
-  f.write(str(di) + ' ' + str(y1) + ' ' + str(y3) ' ' + str(y2) + '\n')    # write week number, volume to file
+  f.write(str(di) + ' ' + str(y1) + ' ' + str(y3) + ' ' + str(y2) + '\n')    # write week number, volume to file
 print(str(di.strftime("%d/%m/%Y")) + "|" + str(y1))
 
 # All-time volume table

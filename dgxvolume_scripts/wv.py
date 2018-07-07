@@ -53,14 +53,15 @@ with open('weekly.dat','w+') as f:		# open file for writing
       ts = ts + vi  # Minting increases total supply
     elif ato == '0x0000000000000000000000000000000000000000':  # if to 0x0 (recasting)
       ts = ts - vi  # Recasting decreases total supply
-      #elif afrom == '0xd5be9efcc0fbea9b68fa8d1af641162bc92e83f2':  #  from digix marketplace
-      #vdigix = vdigix + vi
     elif ato == '0x26cab6888d95cf4a1b32bd37d4091aa0e29e7f68':  # recast fee collector
       pass
     elif ato == '0x00a55973720245819ec59c716b7537dac5ed4617':  # tx fee collector
       tx = tx + vi
       #elif amount[i]['to'] == '0x964f35fae36d75b1e72770e244f6595b68508cf5':  # kyber contract 
       #print('kyber')
+    elif afrom == '0xd5be9efcc0fbea9b68fa8d1af641162bc92e83f2':  #  from digix marketplace
+      vdigix = vdigix + vi
+      tv = tv + vi                              # accumulate total volume
       '''
       When e.g. 10 DGX is sent 3 tx occur: first 0.013 (the tx fee), then 9.987, lastly 10. 
       This conditional avoids counting the 9.987 because the 0.013 and the 9.987 have the same 'from' address.
@@ -68,7 +69,7 @@ with open('weekly.dat','w+') as f:		# open file for writing
     elif afrom == afrom1:
       continue
     else:					# else is a normal tx
-      wv = wv + vi                              # accumulate weekly volume
+      wv = wv + vi                              # accumulate normal weekly volume
       tv = tv + vi                              # accumulate total volume
     if dt > cw*week:                            # if dt > cw weeks
       cw += 1                                   # +1 week
@@ -81,7 +82,8 @@ with open('weekly.dat','w+') as f:		# open file for writing
       vdigix = 0                                # reset
   y1 = round(float(wv)/1e9,2)                	# round
   y2 = round(float(ts)/1e9,2)
-  f.write(str(di) + ' ' + str(y1) + ' ' + str(y2) + '\n')    # write week number, volume to file
+  y3 = round(float(vdigix)/1e9,2)
+  f.write(str(di) + ' ' + str(y1) + ' ' + str(y3) ' ' + str(y2) + '\n')    # write week number, volume to file
 print(str(di.strftime("%d/%m/%Y")) + "|" + str(y1))
 
 # All-time volume table

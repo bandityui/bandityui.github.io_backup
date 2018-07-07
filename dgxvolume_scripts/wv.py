@@ -50,6 +50,8 @@ with open('weekly.dat','w+') as f:		# open file for writing
       afrom1 = amount[i-1]['from']		# from of (i-1)th tx
     if afrom == '0x0000000000000000000000000000000000000000':  # if from 0x0 (minting)
       ts = ts + vi  # Minting increases total supply
+    elif afrom == '0xd5be9efcc0fbea9b68fa8d1af641162bc92e83f2':  #  from digix marketplace
+      pass
     elif ato == '0x0000000000000000000000000000000000000000':  # if to 0x0 (recasting)
       ts = ts - vi  # Recasting decreases total supply
     elif ato == '0x26cab6888d95cf4a1b32bd37d4091aa0e29e7f68':  # recast fee collector
@@ -122,6 +124,8 @@ def dv():
         afrom1 = amount[i-1]['from']		# from of (i-1)th tx
       if afrom == '0x0000000000000000000000000000000000000000':  # if from 0x0 (minting)
         ts = ts + vi  # Minting increases total supply
+      elif afrom == '0xd5be9efcc0fbea9b68fa8d1af641162bc92e83f2':  #  from digix marketplace
+        pass
       elif ato == '0x0000000000000000000000000000000000000000':  # if to 0x0 (recasting)
         ts = ts - vi  # Recasting decreases total supply
       elif ato == '0x26cab6888d95cf4a1b32bd37d4091aa0e29e7f68':  # recast fee collector

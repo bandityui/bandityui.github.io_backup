@@ -44,6 +44,7 @@ set yrange [0.9*STATS_min_y:1.05*STATS_max_y]
 set xdata time
 set timefmt "%Y-%m-%d %H:$M"
 set format x "%d/%m/%Y"
+set xrange ["2018-03-22 00:00" :]
 
 LW=3.0
 

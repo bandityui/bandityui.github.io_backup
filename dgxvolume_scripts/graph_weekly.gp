@@ -28,7 +28,7 @@ set mxtics 2
 set xtics rotate
 unset key
 
-set ytics 0,10000,10000000 nomirror tc lt 6
+set ytics 0,5000,10000000 nomirror tc lt 6
 set mytics 2
 
 set y2tics 0,10000,10000000 nomirror tc lt 7

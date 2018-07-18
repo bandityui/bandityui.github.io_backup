@@ -58,9 +58,11 @@ def xvolume(x,printtable):
         if printtable == 1:
           print(str(di.strftime("%d/%m/%Y")) + "|" + str(y1))  # print information
         y2 = round(float(ts)/1e9,2)
-        f.write(str(di) + ' ' + str(y1) + ' ' + str(y2) + '\n')    # write date, volume to file
+        y3 = round(float(vkryptono)/1e9,2)
+        f.write(str(di) + ' ' + str(y1) + ' ' + str(y2) + ' ' + str(vkryptono) + '\n')    # write date, volume to file
         di = d0 + datetime.timedelta(seconds=dt)                   # datetime of ith tx
         xv = 0                                                     # reset x volume 
+        vkryptono = 0                                              # reset volume 
     xv = round(float(xv)/1e9,2)                                    # current, unfinished week
     tv = round(float(tv)/1e9,2)
     ts = round(float(ts)/1e9,2)

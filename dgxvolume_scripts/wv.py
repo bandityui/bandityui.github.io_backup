@@ -10,6 +10,8 @@ def xvolume(x,printtable):
   xv = 0                                        # volume in time period 'x'
   vdigix = 0                                    # volume from digix marketplace
   vkryptono = 0                                 # volume to kryptono
+  vkybert = 0                                   # volume to kyber
+  vkyberf = 0                                   # volume from kyber
   tv = 0                                        # total volume
   tx = 0                                        # tx fees collected
   cx = 1                                        # count time periods (start at 1)
@@ -26,52 +28,51 @@ def xvolume(x,printtable):
       if i > 0:
         afrom1 = a[i-1]['from']                 # from of (i-1)th tx
       if afrom == '0x0000000000000000000000000000000000000000':  # if from 0x0 (minting)
-        ts += vi                                             # Minting increases total supply
+        ts += vi                                                 # Minting increases total supply
       elif ato == '0x0000000000000000000000000000000000000000':  # if to 0x0 (recasting)
-        ts -= vi                                             # Recasting decreases total supply
+        ts -= vi                                                 # Recasting decreases total supply
       elif ato == '0x26cab6888d95cf4a1b32bd37d4091aa0e29e7f68':  # recast fee collector
         pass
       elif ato == '0x00a55973720245819ec59c716b7537dac5ed4617':  # tx fee collector
         tx += vi
-        #elif a[i]['to'] == '0x964f35fae36d75b1e72770e244f6595b68508cf5':  # kyber contract 
-        #print('kyber')
+      elif ato == '0xe8a0e282e6a3e8023465accd47fae39dd5db010b':  # kryptono
+        vkryptono += vi
+        xv += vi                            # accumulate 'x'ly volume
+        tv += vi                            # accumulate total volume
+      elif ato == '0x964f35fae36d75b1e72770e244f6595b68508cf5':  # kyber
+        vkybert += vi
+        xv += vi                            # accumulate 'x'ly volume
+        tv += vi                            # accumulate total volume
+      elif afrom == '0x964f35fae36d75b1e72770e244f6595b68508cf5': # kyber
+        vkyberf += vi
+        xv += vi                            # accumulate 'x'ly volume
+        tv += vi                            # accumulate total volume
+      elif afrom == '0xd5be9efcc0fbea9b68fa8d1af641162bc92e83f2': # digix
+        vdigix += vi
+        xv += vi                            # accumulate 'x'ly volume
+        tv += vi                            # accumulate total volume
         '''
         When e.g. 10 DGX is sent 3 tx occur: first 0.013 (the tx fee), then 9.987, lastly 10. 
         This conditional avoids counting the 9.987 because the 0.013 and the 9.987 have the same 'from' address.
         '''
       elif afrom == afrom1:
         continue
-      elif ato == '0xe8a0e282e6a3e8023465accd47fae39dd5db010b':  # kryptono
-        vkryptono += vi
-        xv += vi                            # accumulate 'x'ly volume
-        tv += vi                            # accumulate total volume
-      #elif afrom == '0xd5be9efcc0fbea9b68fa8d1af641162bc92e83f2':  #  from digix marketplace
-      #  vdigix = vdigix + vi                   # accumulate volume from digix marketplace
-      #  xv = xv + vi                           # accumulate 'x'ly volume
-      #  tv = tv + vi                           # accumulate total volume
       else:                                     # else is a normal tx
         xv += vi                            # accumulate 'x'ly volume
         tv += vi                            # accumulate total volume
       if dt > cx*x:                             # if dt > cx multiples of x time periods
         cx = int(dt/x) + 1                      # a of x time periods passed
-        y1 = round(float(xv)/1e9,2)             # round
         if printtable == 1:
-          print(str(di.strftime("%d/%m/%Y")) + "|" + str(y1))  # print information
-        y2 = round(float(ts)/1e9,2)
-        y3 = round(float(vkryptono)/1e9,2)
-        f.write(str(di) + ' ' + str(y1) + ' ' + str(y2) + ' ' + str(vkryptono) + '\n')    # write date, volume to file
+          print(str(di.strftime("%d/%m/%Y")) + "|" + str(round(float(xv)/1e9,2)))  # print information
+        #f.write(str(di) + ' ' + str(xv) + ' ' + str(ts) + ' ' + str(vkryptono) + str(vkyberf) + str(vkybert) + '\n')    # write date, volume to file
+        f.write("%s %s %s %s %s %s %s %s %s" % (di,xv,ts,tx,vdigix,vkybert,vkyberf,vkryptono,'\n'))    # write date, volume to file
         di = d0 + datetime.timedelta(seconds=dt)                   # datetime of ith tx
         xv = 0                                                     # reset x volume 
         vkryptono = 0                                              # reset volume 
-    xv = round(float(xv)/1e9,2)                                    # current, unfinished week
-    tv = round(float(tv)/1e9,2)
-    ts = round(float(ts)/1e9,2)
-    tx = round(float(tx)/1e9,2)
-    vdigix = round(float(vdigix)/1e9,2)
-    vkryptono = round(float(vkryptono)/1e9,2)
-    f.write(str(di) + ' ' + str(xv) + ' ' + str(ts) + ' ' + str(vkryptono) + '\n')        # write date, volume to file
+    #f.write(str(di) + ' ' + str(xv) + ' ' + str(ts) + ' ' + str(vkryptono) + '\n')        # write date, volume to file
+    f.write("%s %s %s %s %s %s %s %s %s" % (di,xv,ts,tx,vdigix,vkybert,vkyberf,vkryptono,'\n'))    # write date, volume to file
   if printtable == 1:
-    print(str(di.strftime("%d/%m/%Y")) + "|" + str(xv))
+    print(str(di.strftime("%d/%m/%Y")) + "|" + str(round(float(xv)/1e9,2)))  # print information
 
   return xv,tv,ts,tx
 
@@ -114,17 +115,17 @@ print("\n")
 print("### All-time volume\n")
 print("| All-time volume (DGX) |")
 print("| --- |")
-print("|" + str(tv) + "|\n")
+print("|" + str(round(float(tv)/1e9,2)) + "|\n")
 
 print("### Total transaction fees collected\n")
 print("| Transaction fees (DGX) |")
 print("| --- |")
-print("|" + str(tx) + "|\n")
+print("|" + str(round(float(tx)/1e9,2)) + "|\n")
 
 print("### Total Supply\n")
 print("| DGX Total Supply |")
 print("| --- |")
-print("|" + str(ts) + "|\n")
+print("|" + str(round(float(ts)/1e9,2)) + "|\n")
 
 wv,tv,ts,tx = xvolume(day,0)
 

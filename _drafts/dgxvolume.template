@@ -13,3 +13,7 @@ categories: DGX
 
 ![DGX weekly volume graph](dgxvolume_scripts/out.png)
 
+### Total fees collected
+
+![Total fees collected](dgxvolume_scripts/fees.png)
+

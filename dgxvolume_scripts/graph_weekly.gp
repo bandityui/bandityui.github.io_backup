@@ -35,11 +35,11 @@ set y2tics 0,10000,10000000 nomirror tc lt 7
 set my2tics 2
 
 stats "604800.dat" u 1:4 nooutput
-set y2range [0:1.1*STATS_max_y]
+set y2range [0:1.1*STATS_max_y/1e9]
 set y2label "Total supply (DGX)" offset -1.5,0
 
 stats "604800.dat" u 1:3 nooutput
-set yrange [0.9*STATS_min_y:1.05*STATS_max_y]
+set yrange [0.9*STATS_min_y/1e9:1.05*STATS_max_y/1e9]
 
 set xdata time
 set timefmt "%Y-%m-%d %H:$M"
@@ -52,8 +52,8 @@ binwidth = 5
 bin(t) = (t - (int(t) % binwidth))
 set boxwidth 2e4*binwidth absolute
 
-p '604800.dat' u 1:(bin($3)) lt 6 lw LW smooth freq with boxes,\
-  '' u 1:4 w l lt 7 lw LW axes x1y2
+p '604800.dat' u 1:(bin($3)/1e9) lt 6 lw LW smooth freq with boxes,\
+  '' u 1:($4/1e9) w l lt 7 lw LW axes x1y2
 
 unset multiplot
 

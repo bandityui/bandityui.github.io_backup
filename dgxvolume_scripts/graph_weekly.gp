@@ -11,8 +11,8 @@ set encoding utf8
 #set ylabel "d^2{/Symbol s}/dp/d{/Symbol W} (mb/(MeV/c)/str)" 1,0
 #set xlabel "K^+ Momentum (GeV/c)"
 
-set multiplot layout 1,1 font ",18" \
-margins 0.25,0.75,0.25,0.90 \
+set multiplot layout 1,1 font ",14" \
+margins 0.25,0.75,0.25,0.80 \
               spacing 0.00,0.00
 #margins <left>,<right>,<bottom>,<top>
 
@@ -26,7 +26,7 @@ set xlabel ""
 set ylabel "Weekly on-chain volume (DGX)" offset 1,0
 set mxtics 2
 set xtics rotate
-unset key
+set key tmargin maxcolumns 2 maxrows 3 
 
 set ytics 0,5000,10000000 nomirror tc lt 6
 set mytics 2
@@ -51,10 +51,14 @@ LW=3.0
 binwidth = 5
 bin(t) = (t - (int(t) % binwidth))
 set boxwidth 2e4*binwidth absolute
+set style fill solid 1.0
 
-p '604800.dat' u 1:(bin($3)/1e9) lt 6 lw LW smooth freq with boxes,\
-  '' u 1:($4/1e9) w l lt 7 lw LW axes x1y2
+p '604800.dat' u 1:(bin($3)/1e9) lt 6 lw LW smooth freq with boxes t "Other",\
+  '' u 1:(bin($6+$7+$8+$9)/1e9) lt 1 lw LW smooth freq with boxes t "to Kryptono",\
+  '' u 1:(bin($6+$7+$8)/1e9) lt 3 lw LW smooth freq with boxes t "from Kyber",\
+  '' u 1:(bin($6+$7)/1e9) lt 2 lw LW smooth freq with boxes t "to Kyber",\
+  '' u 1:(bin($6)/1e9) lt 4 lw LW smooth freq with boxes t "from Digix",\
+  '' u 1:($4/1e9) w l lt 7 lw LW axes x1y2 t "Total Supply"
 
 unset multiplot
-
 

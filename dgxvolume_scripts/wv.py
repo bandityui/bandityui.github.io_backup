@@ -68,6 +68,9 @@ def xvolume(x,printtable):
         f.write("%s %s %s %s %s %s %s %s %s" % (di,xv,ts,tx,vdigix,vkybert,vkyberf,vkryptono,'\n'))    # write date, volume to file
         di = d0 + datetime.timedelta(seconds=dt)                   # datetime of ith tx
         xv = 0                                                     # reset x volume 
+        vdigix = 0                                              # reset volume 
+        vkybert = 0                                              # reset volume 
+        vkyberf = 0                                              # reset volume 
         vkryptono = 0                                              # reset volume 
     #f.write(str(di) + ' ' + str(xv) + ' ' + str(ts) + ' ' + str(vkryptono) + '\n')        # write date, volume to file
     f.write("%s %s %s %s %s %s %s %s %s" % (di,xv,ts,tx,vdigix,vkybert,vkyberf,vkryptono,'\n'))    # write date, volume to file

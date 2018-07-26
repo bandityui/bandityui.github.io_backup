@@ -47,7 +47,7 @@ set timefmt "%Y-%m-%d %H:$M"
 set format x "%d/%m/%Y"
 set xrange ["2018-03-22 00:00" :]
 
-LW=2.0
+LW=3.0
 
 binwidth = 5
 bin(t) = (t - (int(t) % binwidth))

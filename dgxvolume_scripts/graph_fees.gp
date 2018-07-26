@@ -12,7 +12,7 @@ set encoding utf8
 #set xlabel "K^+ Momentum (GeV/c)"
 
 set multiplot layout 1,1 font ",18" \
-margins 0.25,0.75,0.25,0.90 \
+margins 0.25,0.75,0.25,0.80 \
               spacing 0.00,0.00
 #margins <left>,<right>,<bottom>,<top>
 

@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "DGX on-chain volume"
-date:   2018-07-28 23:00:01.415992
+date:   2018-07-29 00:00:01.243704
 categories: DGX
 ---
 
@@ -18,7 +18,7 @@ categories: DGX
 ![Total fees collected](dgxvolume_scripts/fees.png)
 
 This page updates hourly using data from the [DGX contract address (etherscan)](https://etherscan.io/token/0x4f3afec4e5a3f2a6a1a411def7d7dfe50ee057bf). Last updated:
-2018-07-28 23:00 UTC
+2018-07-29 00:00 UTC
 
 ### Weekly volume table
 
@@ -29,7 +29,7 @@ Week Starting | Volume (DGX)
 07/04/2018|2823.35
 14/04/2018|1931.19
 21/04/2018|2172.83
-28/04/2018|10251.96
+29/04/2018|10251.96
 05/05/2018|32836.4
 12/05/2018|16465.19
 19/05/2018|10368.12
